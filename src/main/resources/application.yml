@@ -1,0 +1,33 @@
+spring:
+
+#  数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/javaweb
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+#        关闭驼峰命名
+          #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+
+  devtools:
+    restart:
+      enabled: true
+
+
+
+#  spring.jpa.show-sql=true
+#  spring.jpa.hibernate.ddl-auto=create-drop
+#
+#  spring.thymeleaf.prefix=classpath:/templates/
+#  spring.thymeleaf.cache = false
+#
+#  spring.devtools.restart.enabled= true
