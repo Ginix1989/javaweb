@@ -13,5 +13,7 @@ public interface ServeInfoMapper {
 
     @Select("select * from serve_info")
     public List<ServeInfo> getAllServerInfo();
+
+
 }
 

@@ -20,7 +20,10 @@ public class ServeInfo {
     private String serverItemInfo;
 
     protected ServeInfo() {
+
     }
+
+
 
 
     @Override

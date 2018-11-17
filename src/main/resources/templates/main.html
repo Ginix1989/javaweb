@@ -61,7 +61,7 @@
 
     <!--侧边栏-->
     <!--媒体导入 解决大屏幕样式全屏问题-->
-    <div class="navbar-default navbar-collapse" id="menu_left">
+    <div class="navbar-default navbar-collapse panel-group" id="menu_left">
         <ul class="nav">
             <li>
                 <!--搜索-->
@@ -76,7 +76,7 @@
                 </div>
             </li>
             <li>
-                <a href="#" data-toggle="collapse"  data-target="#sub1"  >系统功能<span
+                <a href="#" data-toggle="collapse"  data-target="#sub1" data-parent="#menu_left"  >系统功能<span
                         class="glyphicon glyphicon-chevron-right pull-right" ></span></a>
                 <ul id="sub1" class="nav collapse">
                     <li>
@@ -216,6 +216,10 @@
 </div>
 
 </div>
+
+
+
+
 
 
 <script src="../static/js/jquery.min.js"></script>
