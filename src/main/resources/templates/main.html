@@ -40,6 +40,8 @@
             }
         }
     </style>
+
+
 </head>
 <body>
 <!--导航-->
@@ -63,7 +65,7 @@
     <!--媒体导入 解决大屏幕样式全屏问题-->
     <div class="navbar-default navbar-collapse panel-group" id="menu_left">
         <ul class="nav">
-            <li>
+            <li id="mySearch">
                 <!--搜索-->
                 <div class="input-group search-bar">
                     <input type="text" class="form-control">
@@ -75,62 +77,62 @@
 
                 </div>
             </li>
-            <li>
-                <a href="#" data-toggle="collapse"  data-target="#sub1" data-parent="#menu_left"  >系统功能<span
-                        class="glyphicon glyphicon-chevron-right pull-right" ></span></a>
-                <ul id="sub1" class="nav collapse">
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>
-                    </li>
-                </ul>
-            </li>
+            <!--<li id="mymenu">-->
+                <!--<a href="#" data-toggle="collapse" data-target="#sub1" data-parent="#menu_left">系统功能<span-->
+                        <!--class="glyphicon glyphicon-chevron-right pull-right"></span></a>-->
+                <!--<ul id="sub1" class="nav collapse">-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
 
-            <li>
-                <a href="#sub2" data-toggle="collapse" >栏目功能<span
-                        class="glyphicon glyphicon-chevron-right pull-right"></span></a>
-                <ul id="sub2" class="nav collapse">
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>
-                    </li>
-                </ul>
-            </li>
+            <!--<li>-->
+                <!--<a href="#sub2" data-toggle="collapse">栏目功能<span-->
+                        <!--class="glyphicon glyphicon-chevron-right pull-right"></span></a>-->
+                <!--<ul id="sub2" class="nav collapse">-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
 
-            <li>
-                <a href="#sub3" data-toggle="collapse" >栏目功能<span
-                        class="glyphicon glyphicon-chevron-right pull-right"></span></a>
-                <ul id="sub3" class="nav collapse">
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>
-                    </li>
-                </ul>
-            </li>
+            <!--<li>-->
+                <!--<a href="#sub3" data-toggle="collapse">栏目功能<span-->
+                        <!--class="glyphicon glyphicon-chevron-right pull-right"></span></a>-->
+                <!--<ul id="sub3" class="nav collapse">-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
 
         </ul>
 
@@ -185,25 +187,26 @@
                         </tbody>
                     </table>
                     <!--分页-->
-                    <nav aria-label="Page navigation text-center" class="text-center" >
-                    <nav aria-label="Page navigation text-center" class="text-center" >
-                        <ul class="pagination">
-                            <li>
-                                <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                                <a href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
+                    <nav aria-label="Page navigation text-center" class="text-center">
+                        <nav aria-label="Page navigation text-center" class="text-center">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </nav>
                 </div>
             </div>
@@ -218,11 +221,15 @@
 </div>
 
 
-
-
-
-
-<script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery-2.2.4.min.js"></script>
+
+
+<script type="text/javascript">
+$().ready(function () {
+    bootstrap
+
+});
+</script>
 </body>
 </html>

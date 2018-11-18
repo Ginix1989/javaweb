@@ -44,13 +44,13 @@ public class ServeInfoController {
 //        menuInfoRepository.save(new MenuInfo(menu.getId(),"日志管理","glyphicon glyphicon-list-alt"));
 //        menuInfoRepository.save(new MenuInfo(menu.getId(),"退出","glyphicon glyphicon-off\""));
 
-        menuInfo = new MenuInfo(0L,"系统管理","glyphicon glyphicon-chevron-right pull-right");
-        menuInfoRepository.save(menuInfo);
-
-        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"系统信息","glyphicon glyphicon-info-sign"));
-        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"管理员管理","glyphicon glyphicon-user"));
-        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"日志管理","glyphicon glyphicon-list-alt"));
-        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"退出","glyphicon glyphicon-off"));
+//        menuInfo = new MenuInfo(0L,"系统管理","glyphicon glyphicon-chevron-right pull-right");
+//        menuInfoRepository.save(menuInfo);
+//
+//        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"系统信息","glyphicon glyphicon-info-sign"));
+//        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"管理员管理","glyphicon glyphicon-user"));
+//        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"日志管理","glyphicon glyphicon-list-alt"));
+//        menuInfoRepository.save(new MenuInfo(menuInfo.getId(),"退出","glyphicon glyphicon-off"));
 
         return  new ModelAndView("index","ServerModel",model);
     }
