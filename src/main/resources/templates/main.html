@@ -227,27 +227,51 @@
 
 <script  th:inline="javascript" type="text/javascript">
 $().ready(function () {
-    // alert(${model.info});
-    //var a = ${model.info};
-    // alert("ssss");
-    // console.log(${ServerModel.info});
-    //console.write(ServerModel);
 
     var menuarray = [[${MenuModel.menuinfo}]];
 
-    // $.grep(menuarray)
+
 
     console.log([[${MenuModel.menuinfo}]]);
 
-   $.each(menuarray,function (i,n) {
+    var menuLiId;
+
+   $.each(menuarray,function (i,parameters) {
        //console.log("111111111");
-       console.log("索引"+i+"内容"+n);
+       console.log("索引"+i+"内容"+parameters.parentId) ;
+       // $("#mySearch").after($("li a"));
+
+       if(parameters.parentId==0)
+       {
+           menuLiId = 'myMenu'+parameters.id;
+           $("#mySearch").after("<li><a href='#' data-toggle='collapse' data-target='"+menuLiId+"'>"+parameters.menuName+"<span class='"+parameters.menuClass+"'></span><ul id='"+menuLiId+"'></ul>");
+       }
+       //else
+       {
+           $("#"+menuLiId+"").append("<li> <a href='#'><span class='"+parameters.menuClass+"'></span> &nbsp;'+parameters.menuName+'</a></li>");
+       }
+
       // console.log(i);
    });
 
-    $.each( [0,1,2], function(i, n){
-        console.log( "Item #" + i + ": " + n );
-    });
+    <!--<li id="mymenu">-->
+    <!--<a href="#" data-toggle="collapse" data-target="#sub1" data-parent="#menu_left">系统功能<span-->
+// <!--class="glyphicon glyphicon-chevron-right pull-right"></span></a>-->
+//     <!--<ul id="sub1" class="nav collapse">-->
+//         <!--<li>-->
+//         <!--<a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>-->
+//     <!--</li>-->
+//     <!--<li>-->
+//     <!--<a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>-->
+//     <!--</li>-->
+//     <!--<li>-->
+//     <!--<a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>-->
+//     <!--</li>-->
+//     <!--<li>-->
+//     <!--<a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>-->
+//     <!--</li>-->
+//     <!--</ul>-->
+//     <!--</li>-->
 });
 
 </script>
