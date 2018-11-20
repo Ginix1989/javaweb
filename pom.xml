@@ -66,6 +66,12 @@
             <artifactId>lombok</artifactId>
             <version>1.14.4</version>
         </dependency>
+    <!--添加依赖spring-boot-devtools-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
@@ -73,6 +79,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--配置热启动-->
+                    <fork>true</fork>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -22,6 +22,9 @@ spring:
     restart:
       enabled: true
 
+#      spring.resources.static-locations=classpath:/static/
+  resources:
+    static-locations: classpath:/static/
 
 
 #  spring.jpa.show-sql=true

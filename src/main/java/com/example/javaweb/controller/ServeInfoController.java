@@ -1,5 +1,6 @@
 package com.example.javaweb.controller;
 
+        import com.example.javaweb.dao.MenuInfoMapper;
         import com.example.javaweb.dao.ServeInfoMapper;
         import com.example.javaweb.domain.MenuInfo;
         import com.example.javaweb.repository.MenuInfoRepository;
@@ -22,8 +23,9 @@ public class ServeInfoController {
     private ServeInfoMapper serveInfoMapper;
     @Autowired
     private MenuInfoRepository menuInfoRepository;
+
     @Autowired
-    private  MenuInfo menuInfo;
+    private MenuInfoMapper menuInfoMapper;//注入菜单查询模块
 
 
 
@@ -62,7 +64,20 @@ public class ServeInfoController {
         model.addAttribute("title","信息展示");
         model.addAttribute("info",serveInfoMapper.getAllServerInfo());
 
-        return  new ModelAndView("index","ServerModel",model);
+        return  new ModelAndView("main","ServerModel",model);
     }
 
+    /**
+     *  获取菜单
+     * @param model
+     * @return
+     */
+    @GetMapping("/menuinfo")
+    public  ModelAndView listMenuInfoMapper(Model model)
+    {
+
+        model.addAttribute("menuinfo",menuInfoMapper.getAllMenu());
+        return new ModelAndView("main","MenuModel",model);
+
+    }
 }
