@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>$Title$</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <script src="../js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="../js/angular1.7.min.js" th:src="@{/js/angular1.7.min.js}"></script>
+    <script src="../js/ui-bootstrap-tpls.min.js" th:src="@{/js/ui-bootstrap-tpls.min.js}"></script>
+    <script src="../js/angular-route1.7.min.js" th:src="@{/js/angular-route1.7.min.js}"></script>
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body >
+<div ng-app="ModalDemo"  ng-controller="ModalDemoCtrl">
+
+    <button class="btn" ng-click="open()">Open me!</button>
+    <button class="btn" ng-click="newOpen()">Open me11!</button>
+    <input ng-model="test">
+    {{test}}
+    </div>
+</div>
+</body>
+
+<!--<script src="../js/angularController/routeConfigure.js" th:src="@{/js/angularController/routeConfigure.js}"></script>-->
+<script>
+    var ModalDemo = angular.module('ModalDemo', ['ui.bootstrap']);
+    ModalDemo.controller('ModalDemoCtrl',['$scope','$modal','$log',function ($scope, $uibModal, $log) {
+        $scope.$on('$viewContentLoaded', function () {
+            console.log('页面加载完成 serveInfoController');
+        });
+        $scope.items = [ 'item1', 'item2', 'item3' ];
+$scope.test='sss';
+        $scope.newOpen=(function () {
+            alert('kkk');
+        });
+
+        // $scope.open = function() {
+        //     console.log('ssssssss');
+        //     var modalInstance = $modal.open({
+        //         templateUrl : 'ds.html',
+        //         controller : ModalInstanceCtrl,
+        //         resolve : {
+        //             items : function() {
+        //                 return $scope.items;
+        //             }
+        //         }
+        //     });
+        //     modalInstance.opened.then(function() {// 模态窗口打开之后执行的函数
+        //         console.log('modal is opened');
+        //     });
+        //     modalInstance.result.then(function(result) {
+        //         console.log(result);
+        //     }, function(reason) {
+        //         console.log(reason);// 点击空白区域，总会输出backdrop
+        //         // click，点击取消，则会暑促cancel
+        //         $log.info('Modal dismissed at: ' + new Date());
+        //     });
+        // }
+    }]);
+    // var ModalDemoCtrl = function($scope, $modal, $log) {
+    //     $scope.items = [ 'item1', 'item2', 'item3' ];
+    //     $scope.open = function() {
+    //         var modalInstance = $modal.open({
+    //             templateUrl : 'myModalContent.html',
+    //             controller : ModalInstanceCtrl,
+    //             resolve : {
+    //                 items : function() {
+    //                     return $scope.items;
+    //                 }
+    //             }
+    //         });
+    //         modalInstance.opened.then(function() {// 模态窗口打开之后执行的函数
+    //             console.log('modal is opened');
+    //         });
+    //         modalInstance.result.then(function(result) {
+    //             console.log(result);
+    //         }, function(reason) {
+    //             console.log(reason);// 点击空白区域，总会输出backdrop
+    //             // click，点击取消，则会暑促cancel
+    //             $log.info('Modal dismissed at: ' + new Date());
+    //         });
+    //     };
+    // };
+    // var ModalInstanceCtrl = function($scope, $modalInstance, items) {
+    //     $scope.items = items;
+    //     $scope.selected = {
+    //         item : $scope.items[0]
+    //     };
+    //     $scope.ok = function() {
+    //         $modalInstance.close($scope.selected);
+    //     };
+    //     $scope.cancel = function() {
+    //         $modalInstance.dismiss('cancel');
+    //     };
+    // };
+
+
+</script>
+</body>
+</html>

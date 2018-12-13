@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 @Mapper
 public interface MenuInfoMapper {
-    @Select("select * from menuinfo")
+    @Select("select * from menu_info")
     List<MenuInfo> getAllMenu();
 
 }

@@ -15,7 +15,7 @@ spring:
           #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   thymeleaf:
-    prefix: classpath:/templates/
+    prefix: classpath:/static/views/
     cache: false
 
   devtools:

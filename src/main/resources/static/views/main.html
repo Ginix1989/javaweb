@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <!--<link rel="stylesheet" href="../css/ionic.css" th:href="@{/css/ionic.css}">-->
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        @media (min-width: 780px) {
+            #menu_left {
+                width: 250px;
+                margin-top: 51px;
+                position: absolute;
+                z-index: 1;
+                height: 600px;
+            }
+            .search-bar {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .page_main {
+                margin-top: 0;
+                margin-left: 255px;
+            }
+            .mybreadcrmb {
+                margin-top: 0;
+            }
+        }
+    </style>
+
+
+
+</head>
+<body ng-app="actionApp">
+<!--导航-->
+<nav class="navbar navbar-default  navbar-static-top">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu_left"
+                aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">大港油田西区老人家庭养护管理系统</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
+        <li><a href="#"><span class="badge" style="background-color: red">223</span></a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-off">&nbsp;注销</span></a></li>
+    </ul>
+
+    <!--侧边栏-->
+    <!--媒体导入 解决大屏幕样式全屏问题-->
+    <div class="navbar-default navbar-collapse panel-group" id="menu_left">
+        <ul class="nav">
+            <li id="mySearch">
+                <!--搜索-->
+                <div class="input-group search-bar">
+                    <input type="text" class="form-control">
+                    <!--一行-->
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button></span>
+
+                </div>
+            </li>
+
+            <!--<li>-->
+            <!--<a href="#sub3" data-toggle="collapse">栏目功能<span-->
+            <!--class="glyphicon glyphicon-chevron-right pull-right"></span></a>-->
+            <!--<ul id="sub3" class="nav collapse">-->
+            <!--<li>-->
+            <!--<a href="#"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;系统信息</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;管理员管理</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;日志管理</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;退出</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</li>-->
+
+        </ul>
+
+    </div>
+</nav>
+<!--右侧内容-->
+<div class="page_main">
+
+    <!--导航-->
+    <ol class="breadcrumb mybreadcrmb">
+        <li><a href="javascirpt:0">主页</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
+
+    <div class="content">
+        <ng-view></ng-view>
+    </div>
+
+
+</div>
+
+</div>
+<script src="../js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script src="../js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+<script src="../js/iniPageInfo/iniPageInfo/iniPage.js" th:src="@{/js/iniPageInfo/iniPage.js}"></script>
+<script src="../js/angular1.7.min.js" th:src="@{/js/angular1.7.min.js}"></script>
+<!--<script src="../js/ionic.bundle.js" th:src="@{/js/ionic.bundle.js}"></script>-->
+<script src="../js/angular-route1.7.min.js" th:src="@{/js/angular-route1.7.min.js}"></script>
+
+<script src="../js/angularController/routeConfigure.js" th:src="@{/js/angularController/routeConfigure.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $.ready(readMenu([[${MenuModel.menuinfo}]]));
+</script>
+
+
+</body>
+</html>

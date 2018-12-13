@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * 服务信息表
+ */
 
 @Entity
 @Getter

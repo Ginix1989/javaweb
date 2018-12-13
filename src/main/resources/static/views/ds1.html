@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <!--<script src="../js/angular.min.js"></script>-->
+    <script src="../js/angular1.7.min.js"></script>
+    <!--<script src="../js/ui-bootstrap-tpls.js"></script>-->
+    <!--<script src="../js/testJs/angular.min.js"></script>-->
+
+    <!--1.7可以使用-->
+    <script src="../js/testJs/ui-bootstrap-tpls.js"></script>
+
+
+    <!--<script src="../js/jquery.js"></script>-->
+    <!--<script src="../js/bootstrap.min.js"></script>-->
+    <!--<script src="../js/angular.min.js"></script>-->
+    <!--<script src="../js/angular-animate.min.js"></script>-->
+    <!--<script src="../js/angular-touch.min.js"></script>-->
+    <!--<script src="../js/ui-bootstrap-tpls.js"></script>-->
+
+
+
+</head>
+<body>
+
+<div ng-app="ModalDemo" ng-controller="ModalDemoCtrl">
+
+    <button ng-click="toggle()">隐藏/显示</button>
+    <button ng-click="clicks()">click</button>
+    <button ng-click="open()">open</button>
+    <p ng-hide="myVar">
+        名: <input type=text ng-model="firstName"><br>
+        姓: <input type=text ng-model="lastName"><br><br>
+        姓名: {{firstName + " " + lastName}}
+    </p>
+
+</div>
+
+<script>
+    // var app = angular.module('ModalDemo', []);
+    // app.controller('ModalDemoCtrl', function($scope) {
+    //     $scope.clicks = function(){
+    //         alert("ssss");
+    //     }
+    //     $scope.firstName = "John";
+    //     $scope.lastName = "Doe";
+    //     $scope.myVar = false;
+    //     $scope.toggle = function() {
+    //         $scope.myVar = !$scope.myVar;
+    //     }
+    // });
+    var ModalDemo = angular.module('ModalDemo',['ui.bootstrap']);
+    ModalDemo.controller('ModalDemoCtrl',['$scope','$log','$modal',function ($scope,$log,$uibModal ) {
+        $scope.$on('$viewContentLoaded', function () {
+            console.log('页面加载完成 serveInfoController');
+        });
+        console.log('页面加载完成 serveInfoController');
+        $scope.items = [ 'item1', 'item2', 'item3' ];
+        // $scope.test='sss';
+        // $scope.clicks=(function () {
+        //     alert('kkk');
+        // });
+        $scope.open = function() {
+            console.log('ssssssss');
+            var modalInstance = $uibModal.open({
+                templateUrl : '../views/addInfo/addServeInfo.html',
+                controller : ModalInstanceCtrl,
+                size:'lg',
+                backdrop:'true',
+                windowClass:{
+
+
+
+                },
+                resolve : {
+                    items : function() {
+                        return $scope.items;
+                    }
+                }
+            });
+            modalInstance.opened.then(function() {// 模态窗口打开之后执行的函数
+                console.log('modal is opened');
+            });
+            modalInstance.result.then(function(result) {
+                console.log(result);
+            }, function(reason) {
+                console.log(reason);// 点击空白区域，总会输出backdrop
+                // click，点击取消，则会暑促cancel
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+
+
+        }
+
+
+        }]);
+
+    var ModalInstanceCtrl = function($scope, $modalInstance, items) {
+        $scope.items = items;
+        $scope.selected = {
+            item : $scope.items[0]
+        };
+        $scope.ok = function() {
+            $modalInstance.close($scope.selected);////关闭并返回当前选项
+        };
+        $scope.cancel = function() {
+            console.log("取消");
+            $modalInstance.dismiss('cancel');
+        };
+    };
+
+</script>
+
+</body>
+</html>
