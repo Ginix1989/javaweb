@@ -6,7 +6,12 @@
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <td><input class="text text-primary" ng-bind="serveAddInfo" placeholder="请输入服务信息" required></td>
+                        <td><input class="text text-primary" ng-model="serveAddInfo" placeholder="请输入服务信息" required></td>
+                    </tr>
+                    <tr>
+                        <td> <button class= "btn btn-success" ng-click="ok()">新增</button>
+                            <button class= "btn btn-success" ng-click="cancel()">取消</button>
+                        </td>
                     </tr>
                 </table>
             </div>

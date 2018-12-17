@@ -43,4 +43,16 @@ public class ServeInfoService {
         return getAllServe();
     }
 
+    /***
+     *  Save ServeInfo
+     * @param serveInfo  name of  ServeInfo
+     * @return
+     */
+    @Transactional
+    public List<ServeInfo> SaveServeInfo(String serveInfo)
+    {
+        serverInfoRepositrory.save( new ServeInfo(serveInfo));
+        return getAllServe();
+    }
+
 }

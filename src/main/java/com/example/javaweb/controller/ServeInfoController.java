@@ -123,8 +123,19 @@ public class ServeInfoController {
     public @ResponseBody   List<ServeInfo> deleteServeInfo(@RequestParam Long id)
     {
         serveInfoService.deleteServeInfo(id);
-        return getAllServeInfo();
 
+        return getAllServeInfo();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping(value="/saveServeInfo")
+    public  @ResponseBody List<ServeInfo> saveServeInfo(@RequestParam String serveInfo)
+    {
+        serveInfoService.SaveServeInfo(serveInfo);
+        return getAllServeInfo();
     }
 
 
