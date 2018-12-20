@@ -1,6 +1,6 @@
 package com.example.javaweb.dao;
 
-import com.example.javaweb.domain.MenuInfo;
+import com.example.javaweb.domain.VillageAdminStaff;
 import com.example.javaweb.domain.VillageStaff;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @Mapper
-public interface VillageStaffMapper {
-    @Select("select * from  village_staff")
-    public List<VillageStaff> getAllVillageStaff();
+public interface VillageAdminStaffMapper {
+    @Select("select * from  village_adminstaff")
+    public List<VillageAdminStaff> getAllVillageAdminStaff();
 }

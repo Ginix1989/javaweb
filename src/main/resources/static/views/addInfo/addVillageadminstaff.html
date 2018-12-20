@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-5 col-lg-5">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">员工信息</div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>姓名：<input class="text text-primary" ng-model="villageAdminStaff.adminstaffName" placeholder="请输入姓名" required></td>
+                </tr>
+
+                <tr>
+                    <td>登录名：<input class="text text-primary" ng-model="villageAdminStaff.loginName" placeholder="请输入登录名" required></td>
+                </tr>
+                <tr>
+                    <td>性别：<input class="text text-primary" ng-model="villageAdminStaff.gender" placeholder="请输入性别" required></td>
+                </tr>
+                <tr>
+                    <td>密码：<input  type="password" class="text text-primary" ng-model="villageAdminStaff.passWord" placeholder="请输入密码" required></td>
+                </tr>
+                <tr>
+                    <td> <button class= "btn btn-success" ng-click="ok()">保存</button>
+                        <button class= "btn btn-success" ng-click="cancel()">取消</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
