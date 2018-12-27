@@ -1,0 +1,40 @@
+<!-- 员工信息展示 新增 删除 查询-->
+<div class="row  ">
+    <div class="col-md-6 col-lg-11">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">子女信息</div>
+            <div class="panel-body">
+                <button  class="btn btn-success " style="margin-bottom: 10px"  ng-click="addchildrenInfo()">新增</button>
+                <table class="table table-striped table-hover table-bordered text-center">
+                    <tr>
+                        <td>编号</td>
+                        <td>姓名</td>
+                        <td>登录名</td>
+                        <td>性别</td>
+                        <td>身份证</td>
+                        <td>编辑</td>
+                        <td>审核</td>
+                    </tr>
+                    <tr ng-repeat="childrenInfo in childrenInfoList">
+                        <td  class="text " ng-model="childrenInfo.childrenId" ng-bind="$index+1"></td>
+                        <td ng-model="childrenInfo.generalName">{{childrenInfo.generalName}}</td>
+                        <td ng-model="childrenInfo.userName">{{childrenInfo.userName}}</td>
+                        <td ng-model="childrenInfo.gender">{{childrenInfo.gender}}</td>
+                        <td ng-model="childrenInfo.identityCard">{{childrenInfo.identityCard}}</td>
+                        <td>
+                            <button  class="btn btn-success"  ng-click="editChildrenInfo(childrenInfo)">编辑</button>
+                            <button  class="btn  btn-danger" ng-click="deleteChildrenInfo(childrenInfo.childrenId)" >删除</button>
+                        </td>
+                        <td>
+                            <button  class="btn  btn-danger" ng-if="childrenInfo.isAccess==1 " disabled>已审核</button>
+                            <button  class="btn  btn-danger" ng-click="isAccess(childrenInfo)"  ng-if="childrenInfo.isAccess==0 ">审核</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

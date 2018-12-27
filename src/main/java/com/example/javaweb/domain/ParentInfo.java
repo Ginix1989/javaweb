@@ -25,7 +25,7 @@ public class ParentInfo {
     // 身份证
     private String identityCard;
     private String phoneNum;
-    private String AddressInfo;
+    private String addressInfo;
     private String childrenName=null;
     // 是否审批
     private String isAccess="0";
@@ -46,7 +46,7 @@ public class ParentInfo {
         this.gender = gender;
         this.identityCard = identityCard;
         this.phoneNum = phoneNum;
-        AddressInfo = addressInfo;
+        this.addressInfo = addressInfo;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ParentInfo {
                 ", gender='" + gender + '\'' +
                 ", identityCard='" + identityCard + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
-                ", AddressInfo='" + AddressInfo + '\'' +
+                ", AddressInfo='" + addressInfo + '\'' +
                 ", childernName='" + childrenName + '\'' +
                 ", isAccess='" + isAccess + '\'' +
                 ", parentUseServe=" + parentUseServe +

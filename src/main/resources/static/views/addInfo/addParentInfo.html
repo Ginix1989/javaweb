@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-5 col-lg-5">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">老人信息</div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>姓名：<input class="text text-primary" ng-model="parentInfoModal.generalName" placeholder="请输入姓名" required></td>
+                </tr>
+
+                <tr>
+                    <td>登录名：<input class="text text-primary" ng-model="parentInfoModal.userName" placeholder="请输入登录名" required></td>
+                </tr>
+                <tr>
+                    <td>性别：<input class="text text-primary" ng-model="parentInfoModal.gender" placeholder="请输入性别" required></td>
+                </tr>
+                <tr>
+                    <td>密码：<input  type="password" class="text text-primary" ng-model="parentInfoModal.passWord" placeholder="请输入密码" required></td>
+                </tr>
+                <tr>
+                    <td>身份证：<input   class="text text-primary" ng-model="parentInfoModal.identityCard" placeholder="请输入身份证" required></td>
+                </tr>
+                <tr>
+                    <td>电话：<input   class="text text-primary" ng-model="parentInfoModal.phoneNum" placeholder="请输入电话" required></td>
+                </tr>
+                <tr>
+                    <td>地址：<input   class="text text-primary" ng-model="parentInfoModal.addressInfo" placeholder="请输入地址" required></td>
+                </tr>
+                <tr>
+                    <td> <button class= "btn btn-success" ng-click="ok()">保存</button>
+                        <button class= "btn btn-success" ng-click="cancel()">取消</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>

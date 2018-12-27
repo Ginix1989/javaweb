@@ -21,6 +21,11 @@ public class ParentUseServe {
     private Long parentId;
 //    服务ID
     private Long serveInfoId;
-    private String dateTime;
+    //预约时间
+    private String orderdateTime;
+    //备注
+    private String note ;
+//评分
+    private String grade ;
 
 }

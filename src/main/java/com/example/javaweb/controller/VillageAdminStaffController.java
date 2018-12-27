@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 小区管理员元控制器
+ * 小区管理员控制器
  */
 @Controller
 @RequestMapping("/index")
