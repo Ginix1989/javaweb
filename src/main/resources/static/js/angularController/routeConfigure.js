@@ -27,6 +27,10 @@ actionApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'regChildrenInfoController',
             templateUrl: '../views/reg/regChildrenInfo.html',
         })
+        .when('/gradeServe',{
+            controller:'gradeServeController',
+            templateUrl:'../views/gradeInfo/gradeServeInfo.html'
+        })
     ;
 }]);
 //控制器 控制预约模块
@@ -779,3 +783,84 @@ var addChildrenInfoModalInstanceCtrl = function ($scope, $uibModalInstance, chil
     };
 
 }
+
+
+//控制器 预约信息评分模块
+actionApp.controller('gradeServeController', ['$rootScope', '$scope', '$http', '$uibModal', '$log',
+    function ($rootScope, $scope, $http, $uibModal, $log) {
+        $scope.$on('$viewContentLoaded', function () {
+            console.log('页面加载完成 gradeServeController');
+        });
+        // 动态请求指定老人服务信息内容
+        $http({
+            method: 'GET',
+            url: 'getParentUseServeInfo',
+            params: {parentId: 1}
+        }).then(function (responsedata) {
+                console.log(responsedata);
+                $rootScope.parentUseServeInfoList = responsedata.data;
+            })
+            .catch(function (response) {
+                    console.log(response);
+                }
+            );
+
+        //评分弹出框
+        $scope.gradeServeInfo=(function (serveInfo) {
+
+            var parentUseServeModalInstance = $uibModal.open(
+                {
+                    templateUrl: '../views/addInfo/addGradeServeInfo.html',
+                    controller: parentUseServeModalInstanceCtrl,
+                    size: 'lg',
+                    backdrop: 'true',
+                    resolve: {
+                        parentUseServeInfoModal: serveInfo
+                    }
+                }
+            );
+
+
+            //打开对话框后
+            parentUseServeModalInstance.opened.then(function () {
+                console.log('open ChildrenInfo Modal');
+            });
+            parentUseServeModalInstance.result.then(function (resultData) {
+                console.log(resultData);
+                $http({
+
+                    method: 'POST',
+                    url: 'saveParentUseServeGrade',
+                    data: resultData
+                }).then(function (value) {
+                    $scope.parentUseServeInfoList = value.data;
+                    alert('评分成功');
+                }).catch(function (reason) {
+                    alert(reason);
+                });
+            }, function (reason) {
+                console.log(reason);//点击空白区域 和取消
+                console.log('Modal dismissed at' + new Date());
+            })
+
+
+        });
+
+    }]);
+
+//弹出框控制器
+var parentUseServeModalInstanceCtrl = function ($scope, $uibModalInstance,parentUseServeInfoModal) {
+
+    if (parentUseServeInfoModal != undefined & parentUseServeInfoModal != null) {
+        $scope.parentUseServeInfoModal = parentUseServeInfoModal;
+    }
+
+    $scope.ok = function () {
+        console.log($scope.parentUseServeInfoModal);
+        $uibModalInstance.close($scope.parentUseServeInfoModal);////关闭并返回当前选项
+    };
+    $scope.cancel = function () {
+        console.log("取消");
+        $uibModalInstance.dismiss('cancel');
+    };
+};

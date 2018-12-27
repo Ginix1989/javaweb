@@ -20,6 +20,7 @@ public class ParentUseServe {
 //    父母id
     private Long parentId;
 //    服务ID
+@Column(name = "serveInfoId")
     private Long serveInfoId;
     //预约时间
     private String orderdateTime;
