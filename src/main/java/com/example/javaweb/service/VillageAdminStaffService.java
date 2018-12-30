@@ -57,4 +57,14 @@ public class VillageAdminStaffService {
         villageAdminStaffRepository.save(villageAdminStaff);
         return  getAllVillageAdminStaff();
     }
+
+    /**
+     * 根据姓名返回管理员登陆信息
+     * @param loginname
+     * @return
+     */
+    public VillageAdminStaff getVillageAdminStaffByLoginName(String loginname)
+    {
+        return  villageAdminStaffMapper.getVillageAdminStaffByLoginName(loginname);
+    }
 }

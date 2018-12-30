@@ -13,4 +13,7 @@ import java.util.List;
 public interface ChildrenInfoMapper {
     @Select("select * from children_info ")
     List<ChildrenInfo> getAllChildrenInfo();
+
+
 }
+

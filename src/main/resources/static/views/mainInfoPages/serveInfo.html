@@ -5,7 +5,8 @@
             <div class="panel-heading">服务信息</div>
             <div class="panel-body">
                 <!--Table-->
-                <button  class="btn btn-success " style="margin-bottom: 10px"  ng-click="addServeInfo()">新增</button>
+                <button  class="btn btn-success " style="margin-bottom: 10px"  ng-click="addServeInfo()" ng-if="parentAuthor.serveinfoAddShow == true">新增 </button>
+
                 <table class="table table-striped table-hover table-bordered text-center">
                     <thead>
                     <tr class="text-primary">
@@ -20,8 +21,8 @@
                         <td ng-model="serveInfo.serverItemInfo">{{serveInfo.serverItemInfo}}</td>
 
                         <td>
-                            <button  class="btn btn-success"  ng-click="">预约</button>
-                            <button  class="btn  btn-danger" ng-click="deleteServeInfoItem(serveInfo.id)" >删除</button>
+                            <button  class="btn btn-success"  ng-click="orderServe(serveInfo.id)">预约</button>
+                            <button  class="btn  btn-danger"  ng-if="parentAuthor.serveinfoDeleteShow == true " ng-click="deleteServeInfoItem(serveInfo.id)" >删除</button>
                         </td>
                     </tr>
                     </tbody>

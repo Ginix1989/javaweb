@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,13 @@ public class ParentUseServeService {
         parentUseServeRepository.save(parentUseServe);
         return getUse_serveInfo(parentUseServe.getParentId());
     }
+    //保存预定信息
+    @Transactional
+    public void saveParentOrderInfo(ParentUseServe parentUseServe)
+    {
+        parentUseServeRepository.save(parentUseServe);
 
+//        return
+    }
 
 }

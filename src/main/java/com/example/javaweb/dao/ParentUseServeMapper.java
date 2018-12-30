@@ -10,7 +10,8 @@ import java.util.Map;
 
 @Component
 @Mapper
-public interface ParentUseServeMapper {
+public interface
+ParentUseServeMapper {
     //获取指定人员的预约服务信息
     @Select("select\n" +
             "\n" +

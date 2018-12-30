@@ -13,4 +13,7 @@ import java.util.List;
 public interface VillageAdminStaffMapper {
     @Select("select * from  village_adminstaff")
     public List<VillageAdminStaff> getAllVillageAdminStaff();
+
+    @Select("select * from village_adminstaff where loginName=#{loginname}")
+    public VillageAdminStaff getVillageAdminStaffByLoginName(String loginname);
 }

@@ -37,6 +37,19 @@ actionApp.config(['$routeProvider', function ($routeProvider) {
 actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$uibModal', '$log',
     function ($rootScope, $scope, $http, $uibModal, $log) {
         $scope.$on('$viewContentLoaded', function () {
+
+            // 动态请求服务信息内容
+            $http.get("getParentAuthor")
+                .then(function (responsedata) {
+                    console.log(responsedata.data);
+                    $scope.parentAuthor = responsedata.data;
+                    //$rootScope.serveInfoList = responsedata.data;
+                })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
+
             console.log('页面加载完成 serveInfoController');
         });
         // 动态请求服务信息内容
@@ -51,24 +64,78 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
             );
         //预约服务
         $scope.orderServe = (function (serverId) {
-            // 获取页面数据
-            $scope.data = {
-                serveInfoId: serverId,
-                parentId: 1,
-                dateTime: "2018-07-11"
+            //预约服务信息
+            serveData={
+                serveInfoId:serverId,
+                parentId:"",
+                grade:0,
+                note:""
             };
-            //ajax提交数据
-            $http({
-                url: 'saveParentUseServe',
-                method: 'POST',
-                data: $scope.data
-            }).then({
-                function() {
-                    alert("请求成功");
-                }
-            }).catch(function (reason) {
-                alert(reason)
+
+            var ordermodalInstance = $uibModal.open({
+                templateUrl: '../views/addInfo/addOrderServeInfo.html',
+                controller: orderModalInstanceCtrl,
+                size: 'lg',
+                backdrop: 'true',
+                //  windowClass: {},
+                // resolve: {
+                //     addVillageStaffInfo: null
+                // }
             });
+            // 模态窗口打开之后执行的函数
+            ordermodalInstance.opened.then(function () {
+
+                console.log('modal is opened');
+                console.log();
+            });
+            ordermodalInstance.result.then(function (result) {
+                console.log('returnValue:');
+                console.log(result);
+                //$scope.addVillageStaffInfo = result;
+               // console.log($scope.addVillageStaffInfo);
+               //  renturnValue and  saveValeu to villagestaff
+                serveData['orderdateTime']=result;
+                $http({
+                    method: 'POST',
+                    url: 'saveParentOrderInfo',
+
+                    data: serveData,//作为消息体参数
+                }).then(function (value) {
+                    alert("保存成功");
+                  //  $scope.villageStaffList = value.data;
+                }, function (reason) {
+                }).catch(function (reason) {
+                });
+            }, function (reason) {
+                console.log(reason);// 点击空白区域，总会输出backdrop
+                // click，点击取消，则会暑促cancel
+                console.log('Modal dismissed at: ' + new Date());
+            });
+
+
+
+
+
+
+
+            // // 获取页面数据
+            // $scope.data = {
+            //     serveInfoId: serverId,
+            //     parentId: 1,
+            //     dateTime: "2018-07-11"
+            // };
+            // //ajax提交数据
+            // $http({
+            //     url: 'saveParentUseServe',
+            //     method: 'POST',
+            //     data: $scope.data
+            // }).then({
+            //     function() {
+            //         alert("请求成功");
+            //     }
+            // }).catch(function (reason) {
+            //     alert(reason)
+            // });
         });
         // 删除服务信息
         $scope.deleteServeInfoItem = (function (serverId) {
@@ -145,6 +212,18 @@ var ModalInstanceCtrl = function ($scope, $uibModalInstance) {
     };
 };
 
+
+//预约服务弹出框控制器
+var orderModalInstanceCtrl = function ($scope, $uibModalInstance) {
+    $scope.ok = function () {
+        console.log($scope.serveTimeInfo);
+        $uibModalInstance.close($scope.serveTimeInfo);////关闭并返回当前选项
+    };
+    $scope.cancel = function () {
+        console.log("取消");
+        $uibModalInstance.dismiss('cancel');
+    };
+};
 
 //用户信息修改
 actionApp.controller('regEditController', ['$rootScope', '$scope', '$http',

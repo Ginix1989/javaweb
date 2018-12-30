@@ -57,4 +57,9 @@ public class ParentInfoService {
         return getAllParentInfo();
     }
 
+    //根据登录名查找用户
+    public ParentInfo getParentInfoByParentName(String parentName)
+    {
+        return parentInfoMapper.getParentInfoByParentName(parentName);
+    }
 }

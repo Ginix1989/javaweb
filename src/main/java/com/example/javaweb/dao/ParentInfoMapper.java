@@ -12,4 +12,7 @@ import java.util.List;
 public interface ParentInfoMapper {
     @Select("select * from parent_info ")
     List<ParentInfo> getAllParentInfo();
+
+    @Select("select * from parent_info where  userName=#{parentName}")
+    ParentInfo getParentInfoByParentName(String parentName);
 }

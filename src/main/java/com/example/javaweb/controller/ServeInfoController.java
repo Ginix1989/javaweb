@@ -9,10 +9,12 @@ import com.example.javaweb.repository.MenuInfoRepository;
 import com.example.javaweb.repository.ParentRegRepository;
 import com.example.javaweb.repository.ParentUseServeRepository;
 import com.example.javaweb.repository.ServerInfoRepositrory;
+import com.example.javaweb.securityExp.UserInfo;
 import com.example.javaweb.service.ServeInfoService;
 import com.fasterxml.jackson.annotation.JsonMerge;
 import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -75,8 +77,14 @@ public class ServeInfoController {
      */
     @GetMapping("/menuinfo")
     public ModelAndView listMenuInfoMapper(Model model) {
-
+        //System.out.println("user-------------------");
+      //  SecurityContextHolder.getContext();
+        UserInfo sysuser =(UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("menuinfo", menuInfoMapper.getAllMenu());
+        model.addAttribute("userloginname", sysuser.getGeneralname());
+
+       // String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal()["username"];
+        //model.addAttribute("userLogininfo",  SecurityContextHolder.getContext().getAuthentication().getPrincipal().username);
         return new ModelAndView("main", "MenuModel", model);
 
     }
@@ -88,21 +96,11 @@ public class ServeInfoController {
         return  listServeinfo;
     }
 
-    //保存用户预约服务信息
-    @PostMapping("/saveParentUseServe")
-    public  void SaveParentUseServeInfo(@RequestBody  ParentUseServe parentUseServe)
-    {
-        //保存预约信息
-      parentUseServeRepository.save(parentUseServe);
-        System.out.println(parentUseServe.getServeInfoId());
-//        getAllServeInfo();
-    }
-
     //获取用户信息 用以修改
     @GetMapping("/getParentInfoForEdit")
     public  @ResponseBody ParentInfo getParentInfo()
     {
-        ParentInfo parentInfo = parentRegRepository.findById(1L).get();
+        ParentInfo parentInfo =parentRegRepository.findById(1L).get();
 
         return parentInfo;
     }

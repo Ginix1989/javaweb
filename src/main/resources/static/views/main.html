@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <link rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.min.css" th:href="@{/css/bootstrap-datepicker.min.css}">
     <!--<link rel="stylesheet" href="../css/ionic.css" th:href="@{/css/ionic.css}">-->
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
     <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -54,11 +55,15 @@
         </button>
         <a href="#" class="navbar-brand">大港油田西区老人家庭养护管理系统</a>
     </div>
+
     <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
         <li><a href="#"><span class="badge" style="background-color: red">223</span></a></li>
+        <li><a href="#"><span th:text="${MenuModel.userloginname}"/></a></li>
+        <li>
+
+        </li>
         <li><a href="#"><span class="glyphicon glyphicon-off">&nbsp;注销</span></a></li>
     </ul>
-
     <!--侧边栏-->
     <!--媒体导入 解决大屏幕样式全屏问题-->
     <div class="navbar-default navbar-collapse panel-group" id="menu_left">
@@ -125,6 +130,8 @@
 <script src="../js/angular-route1.7.min.js" th:src="@{/js/angular-route1.7.min.js}"></script>
 <script src="../js/ui-bootstrap-tpls.js" th:src="@{/js/ui-bootstrap-tpls.js}"></script>
 
+<script src="../js/bootstrap-datepicker.min.js" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+<script src="../js/bootstrap-datepicker.zh-CN.min.js" th:src="@{/js/bootstrap-datepicker.zh-CN.min.js}"></script>
 
 <script src="../js/angularController/routeConfigure.js" th:src="@{/js/angularController/routeConfigure.js}"></script>
 <script type="text/javascript" th:inline="javascript">

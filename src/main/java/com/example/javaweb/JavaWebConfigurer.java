@@ -13,7 +13,8 @@ public class JavaWebConfigurer implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //配置登录
-            registry.addViewController("/login").setViewName("reg\\reg");
+        //registry.addViewController("/login").setViewName("login1");
+        //registry.addViewController("/login-error").setViewName("login1");
     }
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
