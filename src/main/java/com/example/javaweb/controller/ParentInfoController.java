@@ -1,11 +1,14 @@
 package com.example.javaweb.controller;
 
 import com.example.javaweb.domain.ParentInfo;
+import com.example.javaweb.securityExp.UserInfo;
 import com.example.javaweb.service.ParentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +72,37 @@ public class ParentInfoController {
         Author.put("serveinfoDeleteShow",false);
         return Author;
     }
+
+    //获取父母信息 用以修改
+    @GetMapping("/getParentInfoById")
+    public  @ResponseBody ParentInfo getParentInfo()
+    {
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        ParentInfo parentInfo =parentInfoService.getParentInfoByParentId(userInfo.getUserid());
+
+        return parentInfo;
+    }
+
+    //保存修改后的信息
+    @PostMapping("/saveParentInfoForEdit")
+    public  @ResponseBody
+    Map<String,String> saveParentInfoForEdit(@RequestBody ParentInfo parentInfo)
+    {
+        return parentInfoService.saveParent(parentInfo);
+    }
+
+    //保存注册后的信息
+    @PostMapping("/reg/saveParentInfoNewRegParent")
+    public @ResponseBody
+    Map<String,String> saveParentInfoNewRegParent(@RequestBody ParentInfo parentInfo)
+    {
+        System.out.println("ssssssssssssssssssssssss");
+        return parentInfoService.saveParent(parentInfo);
+    }
+
+
+
 
 
 }

@@ -26,7 +26,6 @@ public class ParentInfo {
     private String identityCard;
     private String phoneNum;
     private String addressInfo;
-    private String childrenName=null;
     // 是否审批
     private String isAccess="0";
     //预定内容
@@ -60,7 +59,6 @@ public class ParentInfo {
                 ", identityCard='" + identityCard + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
                 ", AddressInfo='" + addressInfo + '\'' +
-                ", childernName='" + childrenName + '\'' +
                 ", isAccess='" + isAccess + '\'' +
                 ", parentUseServe=" + parentUseServe +
                 '}';

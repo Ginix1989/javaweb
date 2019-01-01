@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    .
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-app="actionApp" ng-controller="myRegParentController">
+<div class="container ">
+<div class="row  ">
+    <div class="col-sm-3 col-sm-offset-4 ">
+        <form action="/reg" method="post" th:action="@{/reg}" >
+            <div class="form-group">
+                <label for="userName">用户名</label>
+                <input type="text" class="form-control" id="userName"  name="userName" ng-model="parentInfo.userName" placeholder="用于登录系统" required/>
+            </div>
+            <div class="form-group">
+                <label for="passWord" >密码</label>
+                <input type="password" class="form-control" id="passWord"  name="passWord" ng-model="parentInfo.passWord" placeholder="密码" required/>
+            </div>
+            <div class="form-group">
+                <label for="generalName">姓名</label>
+                <input type="text" class="form-control" id="generalName" name="generalName" ng-model="parentInfo.generalName" placeholder="真实姓名" required/>
+            </div>
+            <div class="form-group">
+                <label for="gender">性别</label>
+                <!--<input type="text" class="form-control" id="gender" name="gender" ng-model="parentInfo.gender" placeholder="性别">-->
+                <select class="form-control"id="gender" name="gender" ng-model="parentInfo.gender" style="background-color: #F0F0F0;color: #00B4EF" alt="性别" >
+                    <option value="男" ng-selected=true>男</option>
+                    <option value="女">女</option>
+                </select>
+
+                </div>
+
+            <div class="form-group">
+                <label for="identityCard">身份证</label>
+                <input type="text" class="form-control" id="identityCard" name="identityCard" ng-model="parentInfo.identityCard" placeholder="身份证" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNum">电话</label>
+                <input type="text" class="form-control" id="phoneNum" name ="phoneNum" ng-model="parentInfo.phoneNum" placeholder="电话" required>
+            </div>
+            <div class="form-group">
+                <label for="AddressInfo">地址</label>
+                <input type="text" class="form-control" id="addressInfo" name="addressInfo" ng-model="parentInfo.addressInfo" placeholder="地址" required>
+            </div>
+            <button type="button" ng-click="save()" class="btn btn-default">注册</button>
+            <button type="button" ng-click="backHistory()" class="btn btn-default pull-right ">返回</button>
+
+        </form>
+    </div>
+
+</div>
+
+</div>
+
+
+<script src="../../js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script src="../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../../js/angular1.7.min.js" th:src="@{/js/angular1.7.min.js}"></script>
+<script src="../../js/angularService/ParentRegService.js" th:src="@{/js/angularService/ParentRegService.js}"></script>
+<script>
+    var app = angular.module("actionApp",['parentRegService']);
+    app.controller("myRegParentController",function ($scope,$http,saveParentRegInfo,$window) {
+        $scope.parentInfo={
+            userName:"",
+            passWord:"",
+            generalName:'',
+            gender:'男',
+            identityCard:'',
+            phoneNum:'',
+            addressInfo:''
+        }
+
+        $scope.save=(function(){
+
+            saveParentRegInfo. saveParentRegInfoMethod($scope.parentInfo);
+
+        });
+
+        $scope.backHistory=(function(){
+            $window.history.back(-1);
+        });
+
+    });
+
+</script>
+
+
+</body>
+</html>

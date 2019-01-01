@@ -48,7 +48,15 @@ public class ParentUseServeService {
     {
         parentUseServeRepository.save(parentUseServe);
 
-//        return
     }
+
+
+//获取指定人员和日期返回服务信息
+    public List<Map<Object,Object>> getUseServeInfoByStartTimeAndParentId(Long parentId,String startTime)
+    {
+        return parentUseServeMapper.getUseServeInfoByStartTimeAndParentId(parentId,startTime);
+    }
+
+
 
 }

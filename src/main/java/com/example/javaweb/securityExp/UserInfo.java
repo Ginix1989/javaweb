@@ -1,5 +1,9 @@
 package com.example.javaweb.securityExp;
 
+import com.example.javaweb.domain.ChildrenInfo;
+import com.example.javaweb.domain.ParentInfo;
+import com.example.javaweb.domain.VillageAdminStaff;
+import com.example.javaweb.domain.VillageStaff;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,19 +13,25 @@ import java.util.Collection;
 
 public class UserInfo implements Serializable, UserDetails {
 
-    private static final long  serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     private String username;
     private String password;
-    private  String role;
-    private  String generalname;
-    private String userid;
+    private String role;
+    private String generalname;
+    private Long userid;//父母Id
+
+    private ParentInfo parentInfo;
+    private ChildrenInfo childrenInfo;
+    private VillageAdminStaff villageAdminStaff;
+    private VillageStaff villageStaff;
+
     private boolean accountNonExpired;
-    private  boolean accountNonLocked;
-    private  boolean credentialsNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
     private boolean enabled;
 
-    public UserInfo(String username, String password, String role,String generalname, String userid,boolean accountNonExpired, boolean accountNonLocked,
+    public UserInfo(String username, String password, String role, String generalname, Long userid, boolean accountNonExpired, boolean accountNonLocked,
                     boolean credentialsNonExpired, boolean enabled) {
 
         this.username = username;
@@ -34,20 +44,58 @@ public class UserInfo implements Serializable, UserDetails {
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
     }
+
+    public UserInfo(ParentInfo parentInfo, ChildrenInfo childrenInfo, VillageStaff villageStaff, VillageAdminStaff villageAdminStaff, String role, boolean accountNonExpired, boolean accountNonLocked,
+                    boolean credentialsNonExpired, boolean enabled) {
+
+        this.parentInfo = parentInfo;
+        this.childrenInfo = childrenInfo;
+        this.villageStaff = villageStaff;
+        this.villageAdminStaff = villageAdminStaff;
+
+        if (parentInfo!=null)
+        {
+            this.username = parentInfo.getUserName();
+            this.password = parentInfo.getPassWord();
+            this.userid =parentInfo.getParentId();
+        }
+        if (childrenInfo!=null)
+        {
+            this.username = childrenInfo.getUserName();
+            this.password = childrenInfo.getPassWord();
+            this.userid = childrenInfo.getParentId();
+        }
+        if (villageStaff!=null)
+        {
+            this.username = villageStaff.getLoginName();
+            this.password = villageStaff.getPassWord();
+        }
+        if (villageAdminStaff!=null)
+        {
+            this.username = villageAdminStaff.getLoginName();
+            this.password = villageAdminStaff.getPassWord();
+        }
+        this.role = role;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+    }
+
     // 这是权限
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return AuthorityUtils.commaSeparatedStringToAuthorityList(role);
     }
 
-    public  String getGeneralname()
-    {
-        return  generalname;
+    public String getGeneralname() {
+        return generalname;
     }
-    public  String getUserid()
-    {
-        return  userid;
+
+    public Long getUserid() {
+        return userid;
     }
+
     @Override
     public String getPassword() {
         return password;
@@ -76,5 +124,22 @@ public class UserInfo implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public  ParentInfo getParentInfo()
+    {
+        return  this.parentInfo;
+    }
+
+    public ChildrenInfo getChildrenInfo() {
+        return childrenInfo;
+    }
+
+    public VillageAdminStaff getVillageAdminStaff() {
+        return villageAdminStaff;
+    }
+
+    public VillageStaff getVillageStaff() {
+        return villageStaff;
     }
 }

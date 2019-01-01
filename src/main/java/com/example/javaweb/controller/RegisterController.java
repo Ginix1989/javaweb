@@ -35,13 +35,7 @@ public class RegisterController {
 
         return new ModelAndView("redirect:/index/menuinfo");
     }
-    @PostMapping("/saveParentInfo1")
-    public  @ResponseBody
-    String  testN(@RequestBody ParentInfo parentInfo)
-    {
 
-        return "kkkk";
-    }
 
 
 }

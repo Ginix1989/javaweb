@@ -14,6 +14,8 @@ public interface ChildrenInfoMapper {
     @Select("select * from children_info ")
     List<ChildrenInfo> getAllChildrenInfo();
 
-
+    //根据登录名返回子女信息，处理登陆
+    @Select("select * from children_info where username=#{username}")
+    ChildrenInfo getChildrenInfoByUsername(String username);
 }
 

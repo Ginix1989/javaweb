@@ -96,14 +96,7 @@ public class ServeInfoController {
         return  listServeinfo;
     }
 
-    //获取用户信息 用以修改
-    @GetMapping("/getParentInfoForEdit")
-    public  @ResponseBody ParentInfo getParentInfo()
-    {
-        ParentInfo parentInfo =parentRegRepository.findById(1L).get();
 
-        return parentInfo;
-    }
     //修改用户（父母）信息
     @PostMapping("/saveParentInfo")
     public void  updateParentInfo(@RequestBody ParentInfo parentInfo)

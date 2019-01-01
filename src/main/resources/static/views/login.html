@@ -26,33 +26,51 @@
                 <span class="heading">用户登录</span>
                 <div class="form-group">
                     <input type="text" class="form-control" id="username" name="username" placeholder="用户名"
-                           value="dlm"/>
+                           value="aa"/>
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="form-group help">
                     <input type="password" class="form-control" id="password" name="password" placeholder="密　码"
-                           value="MM"/>
+                           value="1"/>
                     <i class="fa fa-lock"></i>
                     <a href="#" class="fa fa-question-circle"></a>
                 </div>
+
+
                 <div class="form-group">
+                    <select class="btn btn-danger pull-left " name="author" style="background-color: #F0F0F0;color: #00B4EF" alt="请选择登陆类型"  placeholder="登陆类型">
+                        <option value="null">请选择登陆类型</option>
+                        <option value="parent">老人</option>
+                        <option value="children">子女</option>
+                        <option value="staff">员工</option>
+                        <option value="admin">管理员</option>
+                    </select>
+                    <!--<select   class="btn btn-danger pull-right " name="author" style="background-color: #F0F0F0;color: #00B4EF" alt="请选择登陆类型"  placeholder="登陆类型">-->
+                        <!--<option value="null">注册</option>-->
+                        <!--<option value="parent">老人</option>-->
+                        <!--<option value="children">子女</option>-->
+                    <!--</select>-->
 
-                    <button type="submit" class="btn btn-default " style="margin-left: 10px">立即注册</button>
-                    <button type="submit" class="btn btn-default">登 &nbsp; &nbsp;录</button>
 
-                    <div style="margin-left: 0px;margin-top:0px;padding-left: 0px;display:flex; height: 40px; ">
-                        <label class="btn btn-success">登陆类型</label>
 
-                        <select class="text-primary" name="author" placeholder="登陆类型">
-                            <option value="parent">老人</option>
-                            <option value="children">子女</option>
-                            <option value="staff">员工</option>
-                            <option value="admin">管理员</option>
-                        </select>
-                    </div>
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            选择注册类型
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                            <li><a href="/views/regNewUser/reg.html">老人</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/views/regNewUser/reg.html">子女</a></li>
+                        </ul>
+                </div>
+                <button type="submit" class="btn ">登 &nbsp; &nbsp;录</button>
+
 
                 </div>
             </form>
+
+
         </div>
     </div>
 </div>

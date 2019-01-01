@@ -57,4 +57,14 @@ public class ChildrenInfoService {
         return getAllChildrenInfo();
     }
 
+    //处理登陆功能
+    public ChildrenInfo getChildrenInfoByUsername(String username)
+
+    {
+
+        return  childrenInfoMapper.getChildrenInfoByUsername(username);
+
+
+    }
+
 }

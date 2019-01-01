@@ -1,7 +1,9 @@
 package com.example.javaweb.securityExp;
 
+import com.example.javaweb.domain.ChildrenInfo;
 import com.example.javaweb.domain.ParentInfo;
 import com.example.javaweb.domain.VillageAdminStaff;
+import com.example.javaweb.service.ChildrenInfoService;
 import com.example.javaweb.service.ParentInfoService;
 import com.example.javaweb.service.VillageAdminStaffService;
 import javafx.scene.Parent;
@@ -18,6 +20,8 @@ public class MyUserDetailsService implements UserDetailsService {
     VillageAdminStaffService villageAdminStaffService;//管理管理员登陆
     @Autowired
     ParentInfoService parentInfoService;//父母登陆
+    @Autowired
+    ChildrenInfoService childrenInfoService;//子女登陆
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -35,7 +39,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 if (parentInfo!=null)
                 {
                     //假设返回的用户信息如下;
-                    UserInfo userInfo = new UserInfo(parentInfo.getUserName(), parentInfo.getPassWord(), "ROLE_PARENT", parentInfo.getGeneralName(),parentInfo.getParentId().toString(),true, true, true, true);
+                    UserInfo userInfo = new UserInfo(parentInfo.getUserName(), parentInfo.getPassWord(), "ROLE_PARENT", parentInfo.getGeneralName(),parentInfo.getParentId(),true, true, true, true);
                     return  userInfo;
                 }
                 else
@@ -44,14 +48,24 @@ public class MyUserDetailsService implements UserDetailsService {
                 }
 
             case "children":
-                break;
+                ChildrenInfo childrenInfo = childrenInfoService.getChildrenInfoByUsername(username);
+                if ( childrenInfo!=null)
+                {
+                    //假设返回的用户信息如下;
+                    UserInfo userInfo = new UserInfo(null,childrenInfo,null,null,"ROLE_CHILDREN",true, true, true, true);
+                    return  userInfo;
+                }
+                else
+                {
+                    return  null;
+                }
             case "admin":
                VillageAdminStaff villageAdminStaff=  villageAdminStaffService.getVillageAdminStaffByLoginName(username);
 
                if (villageAdminStaff!=null)
                {
                    //假设返回的用户信息如下;
-                   UserInfo userInfo = new UserInfo(villageAdminStaff.getAdminstaffName(), villageAdminStaff.getPassWord(), "ROLE_ADMIN", villageAdminStaff.getAdminstaffName(),villageAdminStaff.getId().toString(),true, true, true, true);
+                   UserInfo userInfo = new UserInfo(villageAdminStaff.getAdminstaffName(), villageAdminStaff.getPassWord(), "ROLE_ADMIN", villageAdminStaff.getAdminstaffName(),villageAdminStaff.getId(),true, true, true, true);
                    return  userInfo;
                }
                else

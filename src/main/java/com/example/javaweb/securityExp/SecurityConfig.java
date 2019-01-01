@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationDetailsSource(authenticationDetailsSource)
                 //表单登陆  。permitAll()表示这个不需要验证 登陆页面 登陆失败页面
                 .and()
-                .authorizeRequests().antMatchers( "/css/**","/js/**").permitAll()
+                .authorizeRequests().antMatchers( "/css/**","/js/**","/views/regNewUser/**","/index/reg/**").permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and()
                 .csrf().disable();

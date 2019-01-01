@@ -23,7 +23,6 @@ public class ChildrenInfo {
     private String identityCard;
     private String phoneNum;
     private String addressInfo;
-    private String childrenName=null;
     // 是否审批
     private String isAccess="0";
 }

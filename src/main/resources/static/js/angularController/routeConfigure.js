@@ -7,9 +7,13 @@ actionApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'serveInfoController',
             templateUrl: '../views/mainInfoPages/serveInfo.html',
         })
-        .when('/regEdit', {//注册信息
+        .when('/regEdit', {//父母注册信息修改
             controller: 'regEditController',
             templateUrl: '../views/reg/regEdit.html',
+        })
+        .when('/regEditChildren', {//子女注册信息修改
+            controller: 'regEditChildrenController',
+            templateUrl: '../views/reg/regEditChildren.html',
         })
         .when('/regVillageStaff', {//小区员工路由 负责小区员工CRUD
             controller: 'regVillageStaffController',
@@ -27,9 +31,13 @@ actionApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'regChildrenInfoController',
             templateUrl: '../views/reg/regChildrenInfo.html',
         })
-        .when('/gradeServe',{
-            controller:'gradeServeController',
-            templateUrl:'../views/gradeInfo/gradeServeInfo.html'
+        .when('/gradeServe', {//评分
+            controller: 'gradeServeController',
+            templateUrl: '../views/gradeInfo/gradeServeInfo.html'
+        })
+        .when('/MyServeInfo', {//我的服务信息
+            controller: 'MyServeInfoController',
+            templateUrl: '../views/mainInfoPages/MyServeInfo.html'
         })
     ;
 }]);
@@ -65,11 +73,11 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
         //预约服务
         $scope.orderServe = (function (serverId) {
             //预约服务信息
-            serveData={
-                serveInfoId:serverId,
-                parentId:"",
-                grade:0,
-                note:""
+            serveData = {
+                serveInfoId: serverId,
+                parentId: "",
+                grade: 0,
+                note: ""
             };
 
             var ordermodalInstance = $uibModal.open({
@@ -92,9 +100,9 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
                 console.log('returnValue:');
                 console.log(result);
                 //$scope.addVillageStaffInfo = result;
-               // console.log($scope.addVillageStaffInfo);
-               //  renturnValue and  saveValeu to villagestaff
-                serveData['orderdateTime']=result;
+                // console.log($scope.addVillageStaffInfo);
+                //  renturnValue and  saveValeu to villagestaff
+                serveData['orderdateTime'] = result;
                 $http({
                     method: 'POST',
                     url: 'saveParentOrderInfo',
@@ -102,7 +110,7 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
                     data: serveData,//作为消息体参数
                 }).then(function (value) {
                     alert("保存成功");
-                  //  $scope.villageStaffList = value.data;
+                    //  $scope.villageStaffList = value.data;
                 }, function (reason) {
                 }).catch(function (reason) {
                 });
@@ -112,30 +120,6 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
                 console.log('Modal dismissed at: ' + new Date());
             });
 
-
-
-
-
-
-
-            // // 获取页面数据
-            // $scope.data = {
-            //     serveInfoId: serverId,
-            //     parentId: 1,
-            //     dateTime: "2018-07-11"
-            // };
-            // //ajax提交数据
-            // $http({
-            //     url: 'saveParentUseServe',
-            //     method: 'POST',
-            //     data: $scope.data
-            // }).then({
-            //     function() {
-            //         alert("请求成功");
-            //     }
-            // }).catch(function (reason) {
-            //     alert(reason)
-            // });
         });
         // 删除服务信息
         $scope.deleteServeInfoItem = (function (serverId) {
@@ -225,7 +209,7 @@ var orderModalInstanceCtrl = function ($scope, $uibModalInstance) {
     };
 };
 
-//用户信息修改
+//父母信息修改
 actionApp.controller('regEditController', ['$rootScope', '$scope', '$http',
     function ($rootScope, $scope, $http) {
         $scope.$on('$viewContentLoaded', function () {
@@ -234,7 +218,7 @@ actionApp.controller('regEditController', ['$rootScope', '$scope', '$http',
         //获取父母用户信息，用以修改
         $http({
             method: 'GET',
-            url: "getParentInfoForEdit"
+            url: "getParentInfoById"
         }).then(function (responseData) {
             console.log(responseData);
             $scope.parentInfo = responseData.data;
@@ -244,7 +228,7 @@ actionApp.controller('regEditController', ['$rootScope', '$scope', '$http',
         //保存父母信息
         $scope.saveParentInfo = (function (parentId) {
             $http({
-                url: 'saveParentInfo',
+                url: 'saveParentInfoForEdit',
                 method: "POST",
                 data: $scope.parentInfo
             }).then(function (data) {
@@ -256,6 +240,40 @@ actionApp.controller('regEditController', ['$rootScope', '$scope', '$http',
             });
         });
     }]);
+
+
+//子女信息修改
+actionApp.controller('regEditChildrenController', ['$rootScope', '$scope', '$http',
+    function ($rootScope, $scope, $http) {
+        $scope.$on('$viewContentLoaded', function () {
+            console.log('页面加载完成');
+        });
+        //获取子女用户信息，用以修改
+        $http({
+            method: 'GET',
+            url: "getChildrenForEidt"
+        }).then(function (responseData) {
+            console.log(responseData);
+            $scope.ChildrenInfo = responseData.data;
+        }).catch(function (reason) {
+            alert(reason)
+        });
+        //保存子女信息
+        $scope.saveParentInfo = (function (parentId) {
+            $http({
+                url: 'saveChildrenForEidt',
+                method: "POST",
+                data: $scope.ChildrenInfo
+            }).then(function (data) {
+                alert("保存成功");
+            }, function (rep) {
+                alert(rep.data);
+            }).catch(function (reason) {
+                alert(reason.data);
+            });
+        });
+    }]);
+
 
 //小区员工控制器
 actionApp.controller('regVillageStaffController', ['$rootScope', '$scope', '$http', '$uibModal',
@@ -587,10 +605,9 @@ actionApp.controller('regParentInfoController', ['$rootScope', '$scope', '$http'
         });
 
         //修改审核状态
-        $scope.isAccess=(function (parentInfo) {
+        $scope.isAccess = (function (parentInfo) {
 
-            parentInfo['isAccess']=1;
-
+            parentInfo['isAccess'] = 1;
 
 
             $http({
@@ -604,9 +621,9 @@ actionApp.controller('regParentInfoController', ['$rootScope', '$scope', '$http'
             }).catch(function (reason) {
                 alert(reason);
             });
-            
+
         });
-        
+
         //新增父母信息弹出框
         $scope.addparentInfo = (function () {
 
@@ -728,10 +745,9 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
 
 
         //修改审核状态
-        $scope.isAccess=(function (childrenInfo) {
+        $scope.isAccess = (function (childrenInfo) {
 
-            childrenInfo['isAccess']=1;
-
+            childrenInfo['isAccess'] = 1;
 
 
             $http({
@@ -876,16 +892,16 @@ actionApp.controller('gradeServeController', ['$rootScope', '$scope', '$http', '
             url: 'getParentUseServeInfo',
             params: {parentId: 1}
         }).then(function (responsedata) {
-                console.log(responsedata);
-                $rootScope.parentUseServeInfoList = responsedata.data;
-            })
+            console.log(responsedata);
+            $rootScope.parentUseServeInfoList = responsedata.data;
+        })
             .catch(function (response) {
                     console.log(response);
                 }
             );
 
         //评分弹出框
-        $scope.gradeServeInfo=(function (serveInfo) {
+        $scope.gradeServeInfo = (function (serveInfo) {
 
             var parentUseServeModalInstance = $uibModal.open(
                 {
@@ -928,7 +944,7 @@ actionApp.controller('gradeServeController', ['$rootScope', '$scope', '$http', '
     }]);
 
 //弹出框控制器
-var parentUseServeModalInstanceCtrl = function ($scope, $uibModalInstance,parentUseServeInfoModal) {
+var parentUseServeModalInstanceCtrl = function ($scope, $uibModalInstance, parentUseServeInfoModal) {
 
     if (parentUseServeInfoModal != undefined & parentUseServeInfoModal != null) {
         $scope.parentUseServeInfoModal = parentUseServeInfoModal;
@@ -943,3 +959,50 @@ var parentUseServeModalInstanceCtrl = function ($scope, $uibModalInstance,parent
         $uibModalInstance.dismiss('cancel');
     };
 };
+
+//我的服务信息
+actionApp.controller('MyServeInfoController', ['$rootScope', '$scope', '$http', '$uibModal', '$log',
+    function ($rootScope, $scope, $http, $uibModal, $log) {
+        $scope.$on('$viewContentLoaded', function () {
+            console.log('页面加载完成 gradeServeController');
+        });
+        // 动态请求指定老人服务信息内容
+        $http({
+            method: 'GET',
+            url: 'getParentUseServeInfo',
+            params: {parentId: 1}
+        }).then(function (responsedata) {
+            console.log(responsedata);
+            $rootScope.parentUseServeInfoList = responsedata.data;
+        })
+            .catch(function (response) {
+                    console.log(response);
+                }
+            );
+
+        $scope.getMyServeInfoByStartTime=(function () {
+
+            //alert($scope.startTime);
+
+            if($scope.startTime==undefined)
+                $scope.startTime= new Date().getFullYear()+"-1-1";
+
+            // alert($scope.startTime);
+            //动态请求指定老人服务信息内容
+            $http({
+                method: 'GET',
+                url: 'getUseServeInfoByStartTimeAndParentId',
+                params: {startTime: $scope.startTime}
+            }).then(function (responsedata) {
+                console.log(responsedata);
+                $rootScope.parentUseServeInfoList = responsedata.data;
+            })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
+        });
+
+
+
+    }]);
