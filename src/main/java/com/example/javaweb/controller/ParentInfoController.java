@@ -97,7 +97,6 @@ public class ParentInfoController {
     public @ResponseBody
     Map<String,String> saveParentInfoNewRegParent(@RequestBody ParentInfo parentInfo)
     {
-        System.out.println("ssssssssssssssssssssssss");
         return parentInfoService.saveParent(parentInfo);
     }
 
