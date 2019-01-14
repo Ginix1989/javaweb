@@ -26,7 +26,28 @@ public class ParentUseServe {
     private String orderdateTime;
     //备注
     private String note ;
-//评分
+
+    protected  ParentUseServe(){};
+    public ParentUseServe(Long parentId, Long serveInfoId, String orderdateTime, String note, String grade) {
+        this.parentId = parentId;
+        this.serveInfoId = serveInfoId;
+        this.orderdateTime = orderdateTime;
+        this.note = note;
+        this.grade = grade;
+    }
+
+    //评分
     private String grade ;
 
+    @Override
+    public String toString() {
+        return "ParentUseServe{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", serveInfoId=" + serveInfoId +
+                ", orderdateTime='" + orderdateTime + '\'' +
+                ", note='" + note + '\'' +
+                ", grade='" + grade + '\'' +
+                '}';
+    }
 }

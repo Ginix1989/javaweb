@@ -39,19 +39,35 @@ actionApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'MyServeInfoController',
             templateUrl: '../views/mainInfoPages/MyServeInfo.html'
         })
-    ;
+        .when('/MypersonServeInfo', {//定制服务信息
+            controller: 'MypersonServeInfoController',
+            templateUrl: '../views/mainInfoPages/MypersonServeInfo.html'
+        })
+        //NursingServeInfo.
+        .when('/NursingServeInfo', {//护理服务信息
+            controller: 'NursingServeInfoController',
+            templateUrl: '../views/mainInfoPages/NursingServeInfo.html'
+        })
+        .when('/OrderQuery', {//订单信息
+            controller: 'OrderQueryInfoController',
+            templateUrl: '../views/mainInfoPages/OrderQueryInfo.html'
+        })
+        .when('/logOut', {//退出
+            controller: 'logOutController',
+            templateUrl: '../views/login.html'
+        })
+    ;//#!/OrderQuery /logout
 }]);
 //控制器 控制预约模块
 actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$uibModal', '$log',
     function ($rootScope, $scope, $http, $uibModal, $log) {
         $scope.$on('$viewContentLoaded', function () {
 
-            // 动态请求服务信息内容
-            $http.get("getParentAuthor")
+            // 获取权限
+            $http.get("../../getAuthor")
                 .then(function (responsedata) {
                     console.log(responsedata.data);
                     $scope.parentAuthor = responsedata.data;
-                    //$rootScope.serveInfoList = responsedata.data;
                 })
                 .catch(function (response) {
                         console.log(response);
@@ -60,23 +76,58 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
 
             console.log('页面加载完成 serveInfoController');
         });
-        // 动态请求服务信息内容
-        $http.get("getAllServeInfo")
-            .then(function (responsedata) {
-                console.log(responsedata);
-                $rootScope.serveInfoList = responsedata.data;
-            })
-            .catch(function (response) {
-                    console.log(response);
-                }
-            );
-        //预约服务
+
+
+        function getallServeInfo() {
+
+            // 动态请求服务信息内容
+            $http.get("getAllServeInfo")
+                .then(function (responsedata) {
+                    console.log(responsedata);
+                    $rootScope.serveInfoList = responsedata.data;
+                })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
+        }
+
+        getallServeInfo();
+
+
+        $scope.getServeInfoByServeType = (function () {
+
+            if ($scope.serveType == undefined | $scope.serveType == null) {
+                getallServeInfo();
+                return;
+            }
+            else {
+                console.log($scope.serveType);
+                $http({
+                    url: 'getAllServeInfoByType',
+                    method: 'Get',
+                    params: {itemInfo: $scope.serveType}
+                })
+                    .then(function (responsedata) {
+                        console.log(responsedata);
+                        $rootScope.serveInfoList = responsedata.data;
+                    })
+                    .catch(function (response) {
+                            console.log(response);
+                        }
+                    );
+            }
+
+        });
+
+
+//预约服务
         $scope.orderServe = (function (serverId) {
             //预约服务信息
             serveData = {
                 serveInfoId: serverId,
                 parentId: "",
-                grade: 0,
+                grade: -1,
                 note: ""
             };
 
@@ -85,10 +136,6 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
                 controller: orderModalInstanceCtrl,
                 size: 'lg',
                 backdrop: 'true',
-                //  windowClass: {},
-                // resolve: {
-                //     addVillageStaffInfo: null
-                // }
             });
             // 模态窗口打开之后执行的函数
             ordermodalInstance.opened.then(function () {
@@ -99,9 +146,6 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
             ordermodalInstance.result.then(function (result) {
                 console.log('returnValue:');
                 console.log(result);
-                //$scope.addVillageStaffInfo = result;
-                // console.log($scope.addVillageStaffInfo);
-                //  renturnValue and  saveValeu to villagestaff
                 serveData['orderdateTime'] = result;
                 $http({
                     method: 'POST',
@@ -121,7 +165,7 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
             });
 
         });
-        // 删除服务信息
+// 删除服务信息
         $scope.deleteServeInfoItem = (function (serverId) {
             $scope.data = {
                 id: serverId
@@ -130,7 +174,10 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
                 url: 'deleteServeInfoById',
                 method: 'Get',
                 data: $scope.data,//作为消息体参数
-                params: {id: serverId}//为url的参数
+                params: {
+                    id: serverId,
+                    serveType: 0
+                }//为url的参数
             }).then(function (value) {
                 alert("删除成功");
                 $rootScope.serveInfoList = value.data;
@@ -140,7 +187,7 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
         });
 
         $scope.items = ['item1', 'item2', 'item3'];
-        //弹出新增窗口
+//弹出新增窗口
         $scope.addServeInfo = function () {
 
             $scope.serveAddInfo = null;
@@ -169,7 +216,10 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
                     url: 'saveServeInfo',
                     method: 'Get',
                     //data: $scope.data,//作为消息体参数
-                    params: {serveInfo: result}//为url的参数
+                    params: {
+                        serveInfo: result,
+                        serveType: 0
+                    }//为url的参数
                 }).then(function (value) {
                     alert("保存成功");
                     $rootScope.serveInfoList = value.data;
@@ -182,7 +232,8 @@ actionApp.controller('serveInfoController', ['$rootScope', '$scope', '$http', '$
                 $log.info('Modal dismissed at: ' + new Date());
             });
         }
-    }]);
+    }])
+;
 
 //弹出框控制器
 var ModalInstanceCtrl = function ($scope, $uibModalInstance) {
@@ -779,6 +830,20 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
             });
         });
 
+
+        // var parentData = {};
+        // //获取父母信息列表
+        // $http({
+        //     method: "GET",
+        //     url: 'getAllParetnInfo'
+        // }).then(function (responseData) {
+        //     console.log(responseData.data);
+        //    parentData = responseData.data;
+        // }).catch(function (reason) {
+        //     alert(reason);
+        // });
+
+
         //新增子女信息弹出框
         $scope.addchildrenInfo = (function () {
 
@@ -789,7 +854,8 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
                     size: 'lg',
                     backdrop: 'true',
                     resolve: {
-                        childrenInfoModal: null
+                        childrenInfoModal: null//,
+                        //  parentData: parentData
                     }
                 }
             );
@@ -862,11 +928,25 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
 
 //新增子女控制器弹出框
 
-var addChildrenInfoModalInstanceCtrl = function ($scope, $uibModalInstance, childrenInfoModal) {
+var addChildrenInfoModalInstanceCtrl = function ($scope, $uibModalInstance, $http, childrenInfoModal) {
 
     if (childrenInfoModal != undefined & childrenInfoModal != null) {
         $scope.childrenInfoModal = childrenInfoModal;
     }
+    //console.log(parentData);
+
+
+    //获取父母信息列表
+    $http({
+        method: "GET",
+        url: 'getAllParetnInfo'
+    }).then(function (responseData) {
+        console.log(responseData.data);
+        $scope.parentList = responseData.data;
+    }).catch(function (reason) {
+        alert(reason);
+    });
+
 
     $scope.ok = function () {
         console.log($scope.childrenInfoModal);
@@ -889,7 +969,7 @@ actionApp.controller('gradeServeController', ['$rootScope', '$scope', '$http', '
         // 动态请求指定老人服务信息内容
         $http({
             method: 'GET',
-            url: 'getParentUseServeInfo',
+            url: 'getParentUseServeInfoForGrade',
             params: {parentId: 1}
         }).then(function (responsedata) {
             console.log(responsedata);
@@ -980,12 +1060,351 @@ actionApp.controller('MyServeInfoController', ['$rootScope', '$scope', '$http', 
                 }
             );
 
-        $scope.getMyServeInfoByStartTime=(function () {
+        $scope.getMyServeInfoByStartTime = (function () {
 
             //alert($scope.startTime);
 
-            if($scope.startTime==undefined)
-                $scope.startTime= new Date().getFullYear()+"-1-1";
+            if ($scope.startTime == undefined)
+                $scope.startTime = new Date().getFullYear() + "-1-1";
+
+            // alert($scope.startTime);
+            //动态请求指定老人服务信息内容
+            $http({
+                method: 'GET',
+                url: 'getUseServeInfoByStartTimeAndParentId',
+                params: {startTime: $scope.startTime}
+            }).then(function (responsedata) {
+                console.log(responsedata);
+                $rootScope.parentUseServeInfoList = responsedata.data;
+            })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
+        });
+    }]);
+
+//定制服务信息
+actionApp.controller('MypersonServeInfoController', ['$rootScope', '$scope', '$http', '$uibModal', '$log',
+    function ($rootScope, $scope, $http, $uibModal, $log) {
+        $scope.$on('$viewContentLoaded', function () {
+            console.log('页面加载完成 MypersonServeInfoController');
+        });
+        // 动态请求指定老人服务信息内容
+        $http({
+            method: 'GET',
+            url: 'getParentPersonalUseServeInfo',
+            params: {parentId: 1}
+        }).then(function (responsedata) {
+            console.log(responsedata);
+            $rootScope.parentUseServeInfoList = responsedata.data;
+        })
+            .catch(function (response) {
+                    console.log(response);
+                }
+            );
+
+        $scope.getMyServeInfoByStartTime = (function () {
+
+            if ($scope.startTime == undefined)
+                $scope.startTime = new Date().getFullYear() + "-1-1"
+            $http({
+                method: 'GET',
+                url: 'getPersonalUseServeInfoByStartTimeAndParentId',
+                params: {startTime: $scope.startTime}
+            }).then(function (responsedata) {
+                console.log(responsedata);
+                $rootScope.parentUseServeInfoList = responsedata.data;
+            })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
+        });
+
+        $scope.addServeInfo = (function () {
+
+            var parentUsePersionalServeModalInstance = $uibModal.open(
+                {
+                    templateUrl: '../views/addInfo/addPersonalServeInfo.html',
+                    controller: parentUsePersonalServeModalInstanceCtrl,
+                    size: 'lg',
+                    backdrop: 'true',
+                    resolve: {
+                        parentUseServeInfoModal: null
+                    }
+                }
+            );
+
+            //打开对话框后
+            parentUsePersionalServeModalInstance.opened.then(function () {
+                console.log('open ChildrenInfo Modal');
+            });
+            parentUsePersionalServeModalInstance.result.then(function (resultData) {
+                console.log(resultData);
+                $http({
+
+                    method: 'POST',
+                    url: 'savePersionServeInfo',
+                    data: resultData
+                }).then(function (value) {
+                    $scope.parentUseServeInfoList = value.data;
+                    alert('预约成功');
+                }).catch(function (reason) {
+                    alert(reason);
+                });
+            }, function (reason) {
+                console.log(reason);//点击空白区域 和取消
+                console.log('Modal dismissed at' + new Date());
+            })
+        });
+    }]);
+
+//弹出框控制器
+var parentUsePersonalServeModalInstanceCtrl = function ($scope, $uibModalInstance, parentUseServeInfoModal) {
+
+    if (parentUseServeInfoModal != undefined & parentUseServeInfoModal != null) {
+        $scope.personalServe = parentUseServeInfoModal;
+    }
+
+    $scope.ok = function () {
+        console.log($scope.personalServe);
+        $uibModalInstance.close($scope.personalServe);////关闭并返回当前选项
+    };
+    $scope.cancel = function () {
+        console.log("取消");
+        $uibModalInstance.dismiss('cancel');
+    };
+};
+
+
+//控制器 护理预约模块
+actionApp.controller('NursingServeInfoController', ['$rootScope', '$scope', '$http', '$uibModal', '$log',
+    function ($rootScope, $scope, $http, $uibModal, $log) {
+        $scope.$on('$viewContentLoaded', function () {
+
+            // 获取权限
+            $http.get("../../getAuthor")
+                .then(function (responsedata) {
+                    console.log(responsedata.data);
+                    $scope.parentAuthor = responsedata.data;
+                })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
+
+            console.log('页面加载完成 serveInfoController');
+        });
+
+
+        function getallNursingServeInfo() {
+
+            // 动态请求服务信息内容
+            $http.get("getAllNursingServeInfo")
+                .then(function (responsedata) {
+                    console.log(responsedata);
+                    $rootScope.serveInfoList = responsedata.data;
+                })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
+        }
+
+        getallNursingServeInfo();
+
+
+        $scope.getServeInfoByServeType = (function () {
+
+            if ($scope.serveType == undefined | $scope.serveType == null) {
+                getallServeInfo();
+                return;
+            }
+            else {
+                console.log($scope.serveType);
+                $http({
+                    url: 'getAllNursingServeInfoByType',
+                    method: 'Get',
+                    params: {itemInfo: $scope.serveType}
+                })
+                    .then(function (responsedata) {
+                        console.log(responsedata);
+                        $rootScope.serveInfoList = responsedata.data;
+                    })
+                    .catch(function (response) {
+                            console.log(response);
+                        }
+                    );
+            }
+
+        });
+
+
+//预约服务
+        $scope.orderServe = (function (serverId) {
+            //预约服务信息
+            serveData = {
+                serveInfoId: serverId,
+                parentId: "",
+                grade: 0,
+                note: ""
+            };
+
+            var orderNursingmodalInstance = $uibModal.open({
+                templateUrl: '../views/addInfo/addNursingOrderServeInfo.html',
+                controller: orderNursingModalInstanceCtrl,
+                size: 'lg',
+                backdrop: 'true',
+            });
+            // 模态窗口打开之后执行的函数
+            orderNursingmodalInstance.opened.then(function () {
+
+                console.log('modal is opened');
+                console.log();
+            });
+            orderNursingmodalInstance.result.then(function (result) {
+                console.log('returnValue:');
+                console.log(result);
+                serveData['orderdateTime'] = result;
+                $http({
+                    method: 'POST',
+                    url: 'saveParentOrderInfo',
+
+                    data: serveData,//作为消息体参数
+                }).then(function (value) {
+                    alert("保存成功");
+                    //  $scope.villageStaffList = value.data;
+                }, function (reason) {
+                }).catch(function (reason) {
+                });
+            }, function (reason) {
+                console.log(reason);// 点击空白区域，总会输出backdrop
+                // click，点击取消，则会暑促cancel
+                console.log('Modal dismissed at: ' + new Date());
+            });
+
+        });
+// 删除服务信息
+        $scope.deleteServeInfoItem = (function (serverId) {
+            $scope.data = {
+                id: serverId
+            };
+            $http({
+                url: 'deleteServeInfoById',
+                method: 'Get',
+                data: $scope.data,//作为消息体参数
+                params: {
+                    id: serverId, serveType: '2'
+                }//为url的参数
+            }).then(function (value) {
+                alert("删除成功");
+                $rootScope.serveInfoList = value.data;
+            }, function (reason) {
+            }).catch(function (reason) {
+            });
+        });
+
+        $scope.items = ['item1', 'item2', 'item3'];
+//弹出新增窗口
+        $scope.addServeInfo = function () {
+
+            $scope.serveAddInfo = null;
+            var modalNursingInstance = $uibModal.open({
+                templateUrl: '../views/addInfo/addNursingServeInfo.html',
+                controller: ModalINursingnstanceCtrl,
+                size: 'lg',
+                backdrop: 'true',
+                //  windowClass: {},
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
+            // 模态窗口打开之后执行的函数
+            modalNursingInstance.opened.then(function () {
+                console.log('modal is opened');
+            });
+            modalNursingInstance.result.then(function (result) {
+                console.log('returnValue:');
+                console.log(result);
+
+                //renturnValue and  saveValeu to ServeinfoTable
+                $http({
+                    url: 'saveServeInfo',
+                    method: 'Get',
+                    //data: $scope.data,//作为消息体参数
+                    params: {
+                        serveInfo: result,
+                        serveType: '2'
+
+                    }//为url的参数
+                }).then(function (value) {
+                    alert("保存成功");
+                    $rootScope.serveInfoList = value.data;
+                }, function (reason) {
+                }).catch(function (reason) {
+                });
+            }, function (reason) {
+                console.log(reason);// 点击空白区域，总会输出backdrop
+                // click，点击取消，则会暑促cancel
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        }
+    }])
+;
+
+//弹出框控制器
+var ModalINursingnstanceCtrl = function ($scope, $uibModalInstance) {
+    $scope.ok = function () {
+        console.log($scope.serveAddInfo);
+        $uibModalInstance.close($scope.serveAddInfo);////关闭并返回当前选项
+    };
+    $scope.cancel = function () {
+        console.log("取消");
+        $uibModalInstance.dismiss('cancel');
+    };
+};
+//预约服务弹出框控制器
+var orderNursingModalInstanceCtrl = function ($scope, $uibModalInstance) {
+    $scope.ok = function () {
+        console.log($scope.serveTimeInfo);
+        $uibModalInstance.close($scope.serveTimeInfo);////关闭并返回当前选项
+    };
+    $scope.cancel = function () {
+        console.log("取消");
+        $uibModalInstance.dismiss('cancel');
+    };
+};
+
+
+//控制器 订单信息模块
+actionApp.controller('OrderQueryInfoController', ['$rootScope', '$scope', '$http', '$uibModal', '$log',
+    function ($rootScope, $scope, $http, $uibModal, $log) {
+        $scope.$on('$viewContentLoaded', function () {
+            console.log('页面加载完成 gradeServeController');
+        });
+        // 动态请求指定老人服务信息内容
+        $http({
+            method: 'GET',
+            url: 'getAllUseServeOrderInfo',
+            params: {parentId: 1}
+        }).then(function (responsedata) {
+            console.log(responsedata);
+            $rootScope.parentUseServeInfoList = responsedata.data;
+        })
+            .catch(function (response) {
+                    console.log(response);
+                }
+            );
+
+        $scope.getMyServeInfoByStartTime = (function () {
+
+            //alert($scope.startTime);
+
+            if ($scope.startTime == undefined)
+                $scope.startTime = new Date().getFullYear() + "-1-1";
 
             // alert($scope.startTime);
             //动态请求指定老人服务信息内容
@@ -1003,6 +1422,41 @@ actionApp.controller('MyServeInfoController', ['$rootScope', '$scope', '$http', 
                 );
         });
 
+        // 删除服务信息
+        $scope.deleteServeInfoItem = (function (serverId) {
+            $scope.data = {
+                id: serverId
+            };
+            $http({
+                url: 'deleteServeInfoById',
+                method: 'Get',
+                data: $scope.data,//作为消息体参数
+                params: {
+                    id: serverId,
+                    serveType: 0
+                }//为url的参数
+            }).then(function (value) {
+                alert("删除成功");
+                $rootScope.serveInfoList = value.data;
+            }, function (reason) {
+            }).catch(function (reason) {
+            });
+        });
+    }]);
+
+
+//登出
+actionApp.controller('logOutController', ['$rootScope', '$scope', '$http', '$uibModal', '$log','$state',
+    function ($rootScope, $scope, $http, $uibModal, $log,$state) {
+        delete $localStorage.accountId;
+        delete $localStorage.token;
+        delete $localStorage.username;
+        delete $localStorage.displayname;
+        delete $localStorage.telephone;
+        $window.localStorage.removeItem("$LoopBack$accessTokenId");
+        $window.localStorage.removeItem("$LoopBack$currentUserId");
+        $state.go('login.html');
+        location.reload();
 
 
     }]);

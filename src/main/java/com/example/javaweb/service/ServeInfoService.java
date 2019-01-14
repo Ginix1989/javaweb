@@ -30,6 +30,23 @@ public class ServeInfoService {
         return list;
     }
 
+    //获取全部护理服务项目信息
+    public List<ServeInfo> getAllNursingServeInfo()
+    {
+        List<ServeInfo> list = serveInfoMapper.getAllNursingServeInfo();
+
+        return list;
+    }
+
+
+    //获取查询服务项目信息
+    public List<ServeInfo> getAllServeByType(String itemInfo)
+    {
+        List<ServeInfo> list = serveInfoMapper.getAllServerInfoByType(itemInfo);
+
+        return list;
+    }
+
     /***
      *  DeleteServeItemInfo and return  refresh View
      *  Begain Transactional
@@ -49,13 +66,40 @@ public class ServeInfoService {
      * @return
      */
     @Transactional
-    public List<ServeInfo> SaveServeInfo(String serveInfo)
+    public List<ServeInfo>
+    SaveServeInfo(String serveInfo)
     {
         serverInfoRepositrory.save( new ServeInfo(serveInfo));
         return getAllServe();
     }
 
+    /***
+     *  Save ServeInfo 护理信息
+     * @param serveInfo  name of  ServeInfo
+     * @return
+     */
+    @Transactional
+    public List<ServeInfo>
+    SaveServeInfo(String serveInfo,String type)
+    {
+        serverInfoRepositrory.save( new ServeInfo(serveInfo,type));
+        return getAllNursingServeInfo();
+    }
 
+
+    /***
+     *  Save ServeInfo and return new Value
+     * @param serveInfo  name of  ServeInfo
+     * @return
+     */
+    @Transactional
+    public void
+    SaveServeInfoReturnNewValue(ServeInfo serveInfo)
+    {
+
+        serverInfoRepositrory.save(serveInfo);
+
+    }
 
 
 

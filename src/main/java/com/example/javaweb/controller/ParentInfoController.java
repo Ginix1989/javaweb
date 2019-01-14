@@ -57,22 +57,6 @@ public class ParentInfoController {
         return getAllParentInfo();
     }
 
-    /**
-     * 获取权限
-     * @param
-     * * @return
-     */
-    @GetMapping("/getParentAuthor")
-    public  @ResponseBody
-    Map<String,Boolean> getParentAuthor()
-    {
-
-        Map<String,Boolean> Author = new HashMap<String,Boolean>();
-        Author.put("serveinfoAddShow",false);
-        Author.put("serveinfoDeleteShow",false);
-        return Author;
-    }
-
     //获取父母信息 用以修改
     @GetMapping("/getParentInfoById")
     public  @ResponseBody ParentInfo getParentInfo()
@@ -100,6 +84,13 @@ public class ParentInfoController {
         return parentInfoService.saveParent(parentInfo);
     }
 
+
+    @GetMapping("/reg/getAllParetnInfoReg")
+    public  @ResponseBody
+    List<ParentInfo> getAllParentInfoReg()
+    {
+        return parentInfoService.getAllParentInfo();
+    }
 
 
 

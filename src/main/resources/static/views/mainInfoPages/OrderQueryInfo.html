@@ -2,7 +2,7 @@
     <div class="col-md-6 col-lg-11">
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">我的预定服务信息</div>
+            <div class="panel-heading">服务订单信息</div>
             <div class="panel-body">
 
                 <!--搜索-->
@@ -23,6 +23,7 @@
                         <td><STRONG> 服务名称</STRONG></td>
                         <td><STRONG>预约类型</STRONG></td>
                         <td><STRONG>预约时间</STRONG></td>
+                        <td><STRONG>操作</STRONG></td>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,6 +32,7 @@
                         <td ng-model="serveInfo.serverItemInfo">{{serveInfo.serverItemInfo}}</td>
                         <td ng-model="serveInfo.type">{{serveInfo.type}}</td>
                         <td ng-model="serveInfo.orderdateTime">{{serveInfo.orderdateTime}}</td>
+                        <td><button  class="btn  btn-danger"  ng-click="deleteServeInfoItem(serveInfo.id)" >删除{{serveInfo.id}}</button></td>
                     </tr>
                     </tbody>
                 </table>

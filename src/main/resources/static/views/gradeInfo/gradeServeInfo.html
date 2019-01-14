@@ -12,6 +12,7 @@
                         <td><STRONG>编号</STRONG></td>
                         <td><STRONG> 服务名称</STRONG></td>
                         <td><STRONG>预约时间</STRONG></td>
+                        <td><STRONG>服务类型</STRONG></td>
                         <td><STRONG>评分</STRONG></td>
                     </tr>
                     </thead>
@@ -20,9 +21,10 @@
                         <td  class="text " ng-model="serveInfo.id" ng-bind="$index+1"></td>
                         <td ng-model="serveInfo.serverItemInfo">{{serveInfo.serverItemInfo}}</td>
                         <td ng-model="serveInfo.orderdateTime">{{serveInfo.orderdateTime}}</td>
+                        <td ng-model="serveInfo.type">{{serveInfo.type}}</td>
                         <td>
-                            <button  class="btn  btn-danger" ng-if="serveInfo.grade!=0" disabled>已评分</button>
-                            <button  class="btn  btn-danger" ng-click="gradeServeInfo(serveInfo)"  ng-if="serveInfo.grade==0 ">评分</button>
+                            <button  class="btn  btn-danger" ng-if="serveInfo.grade!=-1" disabled>已评分</button>
+                            <button  class="btn  btn-danger" ng-click="gradeServeInfo(serveInfo)"  ng-if="serveInfo.grade==-1 ">评分</button>
                         </td>
                     </tr>
                     </tbody>

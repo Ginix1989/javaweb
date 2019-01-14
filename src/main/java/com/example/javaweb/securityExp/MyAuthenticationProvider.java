@@ -24,7 +24,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        CustomWebAuthenticationDetails     customWebAuthenticationDetails = (CustomWebAuthenticationDetails) authentication.getDetails();  // 如上面的介绍，这里通过authentication.getDetails()获取详细信息
+        CustomWebAuthenticationDetails     customWebAuthenticationDetails = (CustomWebAuthenticationDetails) authentication.getDetails();  // 这里通过authentication.getDetails()获取详细信息
         System.out.println("value------------------:");
         System.out.println(customWebAuthenticationDetails.getInvalue());
         String userName = authentication.getName();// 这个获取表单输入中返回的用户名;

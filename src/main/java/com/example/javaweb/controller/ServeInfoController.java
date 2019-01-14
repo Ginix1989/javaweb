@@ -39,8 +39,7 @@ public class ServeInfoController {
     private ServerInfoRepositrory serverInfoRepositrory;
     @Autowired
     private ServeInfoMapper serveInfoMapper;
-    @Autowired
-    private MenuInfoRepository menuInfoRepository;
+
 
     @Autowired
     private MenuInfoMapper menuInfoMapper;//注入菜单查询模块
@@ -69,25 +68,7 @@ public class ServeInfoController {
         return new ModelAndView("main", "ServerModel", model);
     }
 
-    /**
-     * 获取菜单
-     *
-     * @param model
-     * @return
-     */
-    @GetMapping("/menuinfo")
-    public ModelAndView listMenuInfoMapper(Model model) {
-        //System.out.println("user-------------------");
-      //  SecurityContextHolder.getContext();
-        UserInfo sysuser =(UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("menuinfo", menuInfoMapper.getAllMenu());
-        model.addAttribute("userloginname", sysuser.getGeneralname());
 
-       // String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal()["username"];
-        //model.addAttribute("userLogininfo",  SecurityContextHolder.getContext().getAuthentication().getPrincipal().username);
-        return new ModelAndView("main", "MenuModel", model);
-
-    }
 
     //获取全部服务信息
 @GetMapping("/getAllServeInfo")
@@ -96,7 +77,26 @@ public class ServeInfoController {
         return  listServeinfo;
     }
 
+    //获取全部护理服务信息
+    @GetMapping("/getAllNursingServeInfo")
+    public @ResponseBody List<ServeInfo> getAllNursingServeInfo() {
+        List<ServeInfo> listServeinfo = serveInfoService.getAllNursingServeInfo();
+        return  listServeinfo;
+    }
 
+    //获取制定护理服务信息
+    @GetMapping("/getAllNursingServeInfoByType")
+    public @ResponseBody List<ServeInfo> getAllNursingServeInfoByItem(@RequestParam String itemInfo) {
+        List<ServeInfo> listServeinfo = serveInfoService.getAllServeByType(itemInfo);
+        return  listServeinfo;
+    }
+
+    //获取查询服务信息
+    @GetMapping("/getAllServeInfoByType")
+    public @ResponseBody List<ServeInfo> getAllServeInfoByType(@RequestParam String itemInfo) {
+        List<ServeInfo> listServeinfo = serveInfoService.getAllServeByType(itemInfo);
+        return  listServeinfo;
+    }
     //修改用户（父母）信息
     @PostMapping("/saveParentInfo")
     public void  updateParentInfo(@RequestBody ParentInfo parentInfo)
@@ -111,11 +111,18 @@ public class ServeInfoController {
      * @return
      */
     @GetMapping(value = "/deleteServeInfoById")
-    public @ResponseBody   List<ServeInfo> deleteServeInfo(@RequestParam Long id)
+    public @ResponseBody   List<ServeInfo> deleteServeInfo(@RequestParam Long id,@RequestParam String serveType)
     {
         serveInfoService.deleteServeInfo(id);
+        if(!serveType.equals("0"))
+        {
+            return  getAllNursingServeInfo();
+        }else {
+            return getAllServeInfo();
+        }
 
-        return getAllServeInfo();
+
+
     }
 
     /**
@@ -123,11 +130,24 @@ public class ServeInfoController {
      * @return
      */
     @GetMapping(value="/saveServeInfo")
-    public  @ResponseBody List<ServeInfo> saveServeInfo(@RequestParam String serveInfo)
+    public  @ResponseBody List<ServeInfo> saveServeInfo(@RequestParam String serveInfo,@RequestParam String serveType)
     {
-        serveInfoService.SaveServeInfo(serveInfo);
-        return getAllServeInfo();
+        if (!serveType.equals("0"))
+        {
+            serveInfoService.SaveServeInfo(serveInfo,serveType);
+            return getAllNursingServeInfo();
+        }
+        else {
+            serveInfoService.SaveServeInfo(serveInfo);
+            return getAllServeInfo();
+        }
+
     }
+
+
+
+
+
 
 
 

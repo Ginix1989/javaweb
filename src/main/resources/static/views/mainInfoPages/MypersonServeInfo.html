@@ -2,9 +2,11 @@
     <div class="col-md-6 col-lg-11">
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">我的预定服务信息</div>
-            <div class="panel-body">
+            <div class="panel-heading">定制服务信息</div>
 
+            <div class="panel-body">
+                <!--ng-if="parentAuthor.serveinfoAddShow == true"-->
+                <button  class="btn btn-success " style="margin-bottom: 10px"  ng-click="addServeInfo()" >新增 </button>
                 <!--搜索-->
                 <div class="input-group search-bar">
                     <input type="text" class="form-control form_datetime"ng-model="startTime" placeholder="请选择预约日期" readonly>
@@ -21,7 +23,6 @@
                     <tr class="text-primary">
                         <td><STRONG>编号</STRONG></td>
                         <td><STRONG> 服务名称</STRONG></td>
-                        <td><STRONG>预约类型</STRONG></td>
                         <td><STRONG>预约时间</STRONG></td>
                     </tr>
                     </thead>
@@ -29,7 +30,6 @@
                     <tr ng-repeat="serveInfo in parentUseServeInfoList">
                         <td  class="text " ng-model="serveInfo.id" ng-bind="$index+1"></td>
                         <td ng-model="serveInfo.serverItemInfo">{{serveInfo.serverItemInfo}}</td>
-                        <td ng-model="serveInfo.type">{{serveInfo.type}}</td>
                         <td ng-model="serveInfo.orderdateTime">{{serveInfo.orderdateTime}}</td>
                     </tr>
                     </tbody>

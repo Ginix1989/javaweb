@@ -49,9 +49,22 @@ public class VillageStaffService {
      * @param villageStaff
      * @return
      */
+    @Transactional
     public  List<VillageStaff> saveVillageStaffInfo(VillageStaff villageStaff)
     {
         villageStaffRepository.save(villageStaff);
         return  getAllVillageStaff();
+    }
+
+    /**
+     * 根据名称返回员工
+     * @param name 名字
+     * @return
+     */
+    @Transactional
+    public  VillageStaff getAllVillageStaffByName(String name)
+    {
+        return villageStaffMapper.getAllVillageStaffByName(name);
+
     }
 }

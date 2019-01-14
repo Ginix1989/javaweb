@@ -22,6 +22,8 @@ public class ServeInfo {
     @Column(name = "serverItemInfo")
     private String serverItemInfo;
 
+    @Column(name="ispersonal")
+    private  String ispersonal="0"; //是否是个性化服务
     protected ServeInfo() {
 
     }
@@ -40,6 +42,12 @@ public class ServeInfo {
     public ServeInfo(String serverItemInfo) {
         this.serverItemInfo = serverItemInfo;
     }
+    public ServeInfo(String serverItemInfo,String type) {
+        this.serverItemInfo = serverItemInfo;
+        this.ispersonal=type;
+    }
+
+
 
 
 

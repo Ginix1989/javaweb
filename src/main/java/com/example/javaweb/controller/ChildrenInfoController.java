@@ -71,7 +71,7 @@ public class ChildrenInfoController {
      * @param childrenInfo
      * @return
      */
-    @PostMapping("/saveChildrenForEidt")
+    @PostMapping("/reg/saveChildrenForEidt")
     public @ResponseBody
     Map<String, String> saveChildrenForEidt(@RequestBody ChildrenInfo childrenInfo) {
         childrenInfoService.saveChildrenByEntity(childrenInfo);

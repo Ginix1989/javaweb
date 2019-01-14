@@ -35,6 +35,23 @@ public class ParentUseServeService {
         return parentUseServeMapper.getUse_serveInfo(parentId);
     }
 
+
+    //获取指定老人的服务信息 评分
+    public List<Map<Object,Object>> getUse_serveInfoForGrade(Long parentId)
+    {
+
+        return parentUseServeMapper.getUse_serveInfoForGrade(parentId);
+    }
+
+    //获取指定老人的定制服务信息
+    public List<Map<Object,Object>> getUse_PersonalServeInfo(Long parentId,String ispersonal)
+    {
+
+        return parentUseServeMapper.getUse_PersonalServeInfo(parentId,ispersonal);
+    }
+
+
+
     //保存评分信息
     @Transactional
     public List<Map<Object,Object>> saveParentUseInfo(ParentUseServe parentUseServe)
@@ -57,6 +74,25 @@ public class ParentUseServeService {
         return parentUseServeMapper.getUseServeInfoByStartTimeAndParentId(parentId,startTime);
     }
 
+    //获取指定人员和日期返回定制服务信息
+    public List<Map<Object,Object>> getPersonalUseServeInfoByStartTimeAndParentId(Long parentId,String startTime)
+    {
+        return parentUseServeMapper.getPersonalUseServeInfoByStartTimeAndParentId(parentId,startTime);
+    }
+
+
+    //getUseServeOrderInfoByStartTimeAndParentId
+
+    //获取全部订单信息
+    public List<Map<Object,Object>> getAllOrders()
+    {
+        return parentUseServeMapper.getAllOrders();
+    }
+    //获取日期返回定制服务信息
+    public List<Map<Object,Object>> getUseServeOrderInfoByStartTimeAndParentId(String startTime)
+    {
+        return parentUseServeMapper.getUseServeOrderInfoByStartTimeAndParentId(startTime);
+    }
 
 
 }

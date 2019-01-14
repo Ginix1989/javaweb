@@ -58,22 +58,26 @@ public class UserInfo implements Serializable, UserDetails {
             this.username = parentInfo.getUserName();
             this.password = parentInfo.getPassWord();
             this.userid =parentInfo.getParentId();
+            this.generalname = parentInfo.getGeneralName();
         }
         if (childrenInfo!=null)
         {
             this.username = childrenInfo.getUserName();
             this.password = childrenInfo.getPassWord();
             this.userid = childrenInfo.getParentId();
+            this.generalname = childrenInfo.getGeneralName();
         }
         if (villageStaff!=null)
         {
             this.username = villageStaff.getLoginName();
             this.password = villageStaff.getPassWord();
+            this.generalname = villageStaff.getStaffName();
         }
         if (villageAdminStaff!=null)
         {
             this.username = villageAdminStaff.getLoginName();
             this.password = villageAdminStaff.getPassWord();
+            this.generalname = villageAdminStaff.getAdminstaffName();
         }
         this.role = role;
         this.accountNonExpired = accountNonExpired;
@@ -141,5 +145,8 @@ public class UserInfo implements Serializable, UserDetails {
 
     public VillageStaff getVillageStaff() {
         return villageStaff;
+    }
+    public  String getRole(){
+        return  this.role;
     }
 }
