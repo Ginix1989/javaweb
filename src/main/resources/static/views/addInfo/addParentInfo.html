@@ -5,12 +5,32 @@
         <div class="panel-heading">老人信息</div>
         <div class="panel-body">
             <table class="table table-striped table-hover table-bordered text-center">
-                <tr>
-                    <td>姓名：<input class="text text-primary" ng-model="parentInfoModal.generalName" placeholder="请输入姓名" required></td>
+                <tr  ng-if="parentAuthorInfo.CanEdit==true" >
+
+                    <td>姓名：<input class="text text-primary" ng-model="$parent.parentInfoModal.generalName" placeholder="请输入姓名"  >
+              </td>
+
+                <tr  ng-if="parentAuthorInfo.CanDelete==false" >
+
+                    <td>姓名：<input class="text text-primary" ng-model="$parent.parentInfoModal.generalName" placeholder="请输入姓名" readonly   >
+                    </td>
                 </tr>
 
-                <tr>
-                    <td>登录名：<input class="text text-primary" ng-model="parentInfoModal.userName" placeholder="请输入登录名" required></td>
+                <tr   ng-if="parentAuthorInfo.CanEdit==true" >
+                    <td>登录名：<input class="text text-primary" ng-model="$parent.parentInfoModal.userName" placeholder="请输入登录名" >
+                  </td>
+                </tr>
+                <tr   ng-if="parentAuthorInfo.CanEdit==false" >
+                    <td>登录名：<input class="text text-primary" ng-model="$parent.parentInfoModal.userName" placeholder="请输入登录名" readonly >
+                    </td>
+                </tr>
+                <tr  ng-if="parentAuthorInfo.CanEdit==true">
+                    <td>身份证：<input   class="text text-primary" ng-model="$parent.parentInfoModal.identityCard" placeholder="请输入身份证" required >
+                        </td>
+                </tr>
+                <tr  ng-if="parentAuthorInfo.CanEdit==false">
+                    <td>身份证：<input   class="text text-primary"ng-model="$parent.parentInfoModal.identityCard" placeholder="请输入身份证"  >
+                    </td>
                 </tr>
                 <tr>
                     <td>性别：<input class="text text-primary" ng-model="parentInfoModal.gender" placeholder="请输入性别" required></td>
@@ -18,9 +38,7 @@
                 <tr>
                     <td>密码：<input  type="password" class="text text-primary" ng-model="parentInfoModal.passWord" placeholder="请输入密码" required></td>
                 </tr>
-                <tr>
-                    <td>身份证：<input   class="text text-primary" ng-model="parentInfoModal.identityCard" placeholder="请输入身份证" required></td>
-                </tr>
+
                 <tr>
                     <td>电话：<input   class="text text-primary" ng-model="parentInfoModal.phoneNum" placeholder="请输入电话" required></td>
                 </tr>

@@ -114,15 +114,19 @@ ParentUseServeMapper {
 
 
     //获取全部订单信息 根据时间查询
-        @Select("select\n" +
-            "\n" +
-            "s.id,\n" +
-            "s.serveInfoId,\n"+
-            "s.parentId,\n"+
-            "t.serverItemInfo,\n" +
-            "s.orderdateTime,\n" +
-            "s.grade,\n" +
-            "s.note\n" +
+    @Select("select\n" +
+            "            s.id,\n" +
+            "            s.serveInfoId,\n" +
+            "            s.parentId,\n" +
+            "            t.serverItemInfo,\n" +
+            "            s.orderdateTime,\n" +
+            "            s.grade,\n" +
+            "            s.note,\n" +
+            "            case t.ispersonal\t \n" +
+            "            when   '1' then '定制服务'\n" +
+            "            when '0' then '小区服务'\n" +
+            "            when '2' then '护理'\n" +
+            "            end as type \n"+
             " from parent_use_serve s left join serve_info t  on  t.id=s.serveInfoId\n" +
             "where s.orderdateTime>= #{startTime} ")
     List<Map<Object,Object>> getUseServeOrderInfoByStartTimeAndParentId(@Param("startTime") String startTime);

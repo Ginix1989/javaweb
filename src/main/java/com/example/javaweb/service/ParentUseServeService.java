@@ -93,6 +93,13 @@ public class ParentUseServeService {
     {
         return parentUseServeMapper.getUseServeOrderInfoByStartTimeAndParentId(startTime);
     }
+//删除订单信息
+@Transactional
+    public void deleteOrdersById(Long Id)
+    {
+        parentUseServeRepository.deleteById(Id);
+       // parentUseServeRepository.save(new ParentUseServe(12L,12L,"s","s","-1"));
+    }
 
 
 }

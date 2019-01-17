@@ -37,6 +37,9 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         if (!userInfo.getPassword().equals(password)) {
             throw new BadCredentialsException("密码不正确");
         }
+        if (!userInfo.getIsAccess().equals("1")) {
+            throw new BadCredentialsException("未通过审核无法登陆");
+        }
 
 
         Collection<? extends GrantedAuthority> authorities = userInfo.getAuthorities();

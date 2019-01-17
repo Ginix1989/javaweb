@@ -20,6 +20,7 @@ public class UserInfo implements Serializable, UserDetails {
     private String role;
     private String generalname;
     private Long userid;//父母Id
+    private String isAccess;//是否审核 ，父母和子女权限使用
 
     private ParentInfo parentInfo;
     private ChildrenInfo childrenInfo;
@@ -59,6 +60,7 @@ public class UserInfo implements Serializable, UserDetails {
             this.password = parentInfo.getPassWord();
             this.userid =parentInfo.getParentId();
             this.generalname = parentInfo.getGeneralName();
+            this.isAccess = parentInfo.getIsAccess();
         }
         if (childrenInfo!=null)
         {
@@ -66,18 +68,21 @@ public class UserInfo implements Serializable, UserDetails {
             this.password = childrenInfo.getPassWord();
             this.userid = childrenInfo.getParentId();
             this.generalname = childrenInfo.getGeneralName();
+            this.isAccess = childrenInfo.getIsAccess();
         }
         if (villageStaff!=null)
         {
             this.username = villageStaff.getLoginName();
             this.password = villageStaff.getPassWord();
             this.generalname = villageStaff.getStaffName();
+            this.isAccess = "1";
         }
         if (villageAdminStaff!=null)
         {
             this.username = villageAdminStaff.getLoginName();
             this.password = villageAdminStaff.getPassWord();
             this.generalname = villageAdminStaff.getAdminstaffName();
+            this.isAccess = "1";
         }
         this.role = role;
         this.accountNonExpired = accountNonExpired;
@@ -149,4 +154,5 @@ public class UserInfo implements Serializable, UserDetails {
     public  String getRole(){
         return  this.role;
     }
+    public  String getIsAccess(){return  this.isAccess;}
 }

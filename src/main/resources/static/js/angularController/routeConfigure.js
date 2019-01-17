@@ -52,10 +52,6 @@ actionApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'OrderQueryInfoController',
             templateUrl: '../views/mainInfoPages/OrderQueryInfo.html'
         })
-        .when('/logOut', {//退出
-            controller: 'logOutController',
-            templateUrl: '../views/login.html'
-        })
     ;//#!/OrderQuery /logout
 }]);
 //控制器 控制预约模块
@@ -629,6 +625,21 @@ actionApp.controller('regParentInfoController', ['$rootScope', '$scope', '$http'
             console.log('regParentInfoController页面加载完成');
         });
 
+
+
+        // 获取权限
+        $http.get("../../getAuthor")
+            .then(function (responsedata) {
+                console.log(responsedata.data);
+                $scope.parentAuthor = responsedata.data;
+            })
+            .catch(function (response) {
+                    console.log(response);
+                }
+            );
+
+
+
         //获取父母信息列表
         $http({
             method: "GET",
@@ -685,7 +696,8 @@ actionApp.controller('regParentInfoController', ['$rootScope', '$scope', '$http'
                     size: 'lg',
                     backdrop: 'true',
                     resolve: {
-                        parentInfoModal: null
+                        parentInfoModalEdit: null,
+                        parentAuthor:{CanEdit:true}
                     }
                 }
             );
@@ -724,7 +736,8 @@ actionApp.controller('regParentInfoController', ['$rootScope', '$scope', '$http'
                     size: 'lg',
                     backdrop: 'true',
                     resolve: {
-                        parentInfoModal: parentInfo
+                        parentInfoModalEdit: parentInfo,
+                        parentAuthor:$scope.parentAuthor
                     }
                 }
             );
@@ -758,18 +771,21 @@ actionApp.controller('regParentInfoController', ['$rootScope', '$scope', '$http'
 
 //新增父母控制器弹出框
 
-var addParentInfoModalInstanceCtrl = function ($scope, $uibModalInstance, parentInfoModal) {
+var addParentInfoModalInstanceCtrl = function ($scope, $uibModalInstance, parentInfoModalEdit,parentAuthor) {
 
-    if (parentInfoModal != undefined & parentInfoModal != null) {
-        $scope.parentInfoModal = parentInfoModal;
+    if (parentInfoModalEdit != undefined & parentInfoModalEdit != null) {
+
+        $scope.parentInfoModal = parentInfoModalEdit;
+
     }
-
+    $scope.parentAuthorInfo = parentAuthor;
     $scope.ok = function () {
         console.log($scope.parentInfoModal);
         $uibModalInstance.close($scope.parentInfoModal);////关闭并返回当前选项
     }
     $scope.cancel = function () {
         console.log("取消");
+
         $uibModalInstance.dismiss('cancel');
     };
 
@@ -782,6 +798,22 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
         $scope.$on('$viewContentLoaded', function () {
             console.log('regChildrenInfoController页面加载完成');
         });
+
+
+
+
+        // 获取权限
+        $http.get("../../getAuthor")
+            .then(function (responsedata) {
+                console.log(responsedata.data);
+                $scope.parentAuthor = responsedata.data;
+            })
+            .catch(function (response) {
+                    console.log(response);
+                }
+            );
+
+
 
         //获取子女信息列表
         $http({
@@ -854,7 +886,8 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
                     size: 'lg',
                     backdrop: 'true',
                     resolve: {
-                        childrenInfoModal: null//,
+                        childrenInfoModal: null,
+                        parentAuthor:{CanEdit:true}
                         //  parentData: parentData
                     }
                 }
@@ -894,7 +927,8 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
                     size: 'lg',
                     backdrop: 'true',
                     resolve: {
-                        childrenInfoModal: childrenInfo
+                        childrenInfoModal: childrenInfo,
+                        parentAuthor:$scope.parentAuthor
                     }
                 }
             );
@@ -928,13 +962,13 @@ actionApp.controller('regChildrenInfoController', ['$rootScope', '$scope', '$htt
 
 //新增子女控制器弹出框
 
-var addChildrenInfoModalInstanceCtrl = function ($scope, $uibModalInstance, $http, childrenInfoModal) {
+var addChildrenInfoModalInstanceCtrl = function ($scope, $uibModalInstance, $http, childrenInfoModal,parentAuthor) {
 
     if (childrenInfoModal != undefined & childrenInfoModal != null) {
         $scope.childrenInfoModal = childrenInfoModal;
     }
     //console.log(parentData);
-
+    $scope.parentAuthorInfo = parentAuthor;
 
     //获取父母信息列表
     $http({
@@ -1404,13 +1438,13 @@ actionApp.controller('OrderQueryInfoController', ['$rootScope', '$scope', '$http
             //alert($scope.startTime);
 
             if ($scope.startTime == undefined)
-                $scope.startTime = new Date().getFullYear() + "-1-1";
+                $scope.startTime = new Date().getFullYear() + "-01-01";
 
             // alert($scope.startTime);
             //动态请求指定老人服务信息内容
             $http({
                 method: 'GET',
-                url: 'getUseServeInfoByStartTimeAndParentId',
+                url: 'getUseServeOrderInfoByStartTimeAndParentId',
                 params: {startTime: $scope.startTime}
             }).then(function (responsedata) {
                 console.log(responsedata);
@@ -1423,25 +1457,25 @@ actionApp.controller('OrderQueryInfoController', ['$rootScope', '$scope', '$http
         });
 
         // 删除服务信息
-        $scope.deleteServeInfoItem = (function (serverId) {
-            $scope.data = {
-                id: serverId
-            };
+        $scope.deleteOrderServeInfoItem = (function (serverId) {
             $http({
-                url: 'deleteServeInfoById',
-                method: 'Get',
-                data: $scope.data,//作为消息体参数
-                params: {
-                    id: serverId,
-                    serveType: 0
-                }//为url的参数
-            }).then(function (value) {
+                method: 'GET',
+                url: 'deleteOrdersById',
+                params: {Id:serverId}
+            }).then(function (responsedata) {
                 alert("删除成功");
-                $rootScope.serveInfoList = value.data;
-            }, function (reason) {
-            }).catch(function (reason) {
-            });
+                console.log(responsedata);
+                $rootScope.parentUseServeInfoList = responsedata.data;
+            })
+                .catch(function (response) {
+                        console.log(response);
+                    }
+                );
         });
+
+
+
+
     }]);
 
 

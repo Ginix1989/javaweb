@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,8 +38,10 @@ public class MyAuthenticationFailHander extends SimpleUrlAuthenticationFailureHa
 //        response.getWriter().write(objectMapper.writeValueAsString(map));
 //new DefaultRedirectStrategy().sendRedirect(request, response, "/login");
      // new  DefaultRedirectStrategy().sendRedirect(request,response,"/login-error");
-        response.getWriter().write("alert('Ddsh')");
-
+logger.info(exception.getMessage());
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.println ("<script language=javascript>alert('"+exception.getMessage()+"');window.location='login.html'</script>");
 
     }
 }

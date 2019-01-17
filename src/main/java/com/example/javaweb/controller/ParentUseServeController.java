@@ -155,7 +155,7 @@ public class ParentUseServeController {
 
     /**
      * 根据日期查询定制服务信息
-     * @param stratTime
+     * @param
      * @return
      */
     @GetMapping("/getPersonalUseServeInfoByStartTimeAndParentId")
@@ -187,6 +187,25 @@ public class ParentUseServeController {
 
         return getUse_PersonalServeInfo();
     }
+
+
+
+
+
+    /**
+     * 删除订单信息
+     * @param
+     * @return
+     */
+    @GetMapping("/deleteOrdersById")
+    public @ResponseBody
+    List<Map<Object, Object>> deleteOrdersById(@RequestParam Long Id) {
+
+         parentUseServeService.deleteOrdersById(Id);
+
+         return getAllOrders();
+    }
+
 
 
 

@@ -61,26 +61,39 @@ public class LoginController {
 
         //管理员
         if (userInfo.getRole().equals("ROLE_ADMIN")) {
-            Author.put("serveinfoAddShow", true);
-            Author.put("serveinfoDeleteShow", true);
-            Author.put("serveinfoOrderShow", false);
+            Author.put("serveinfoAddShow", true);//服务信息添加
+            Author.put("serveinfoDeleteShow", true);//删除
+            Author.put("serveinfoOrderShow", false);//预约
 
-        } else if (userInfo.getRole().equals("ROLE_PARENT")) {
+            //老人信息管理 CRUD
+            Author.put("isPass",true);//老人审核
+            Author.put("CanDelete",true);//删除老人信息
+            Author.put("CanEdit",true);//修改老人信息
+
+        }
+        //老人
+        else if (userInfo.getRole().equals("ROLE_PARENT")) {
             Author.put("serveinfoAddShow", false);
             Author.put("serveinfoDeleteShow", false);
             Author.put("serveinfoOrderShow", true);
         }
+        //子女
         else if(userInfo.getRole().equals("ROLE_CHILDREN"))
         {
             Author.put("serveinfoAddShow", false);
             Author.put("serveinfoDeleteShow", false);
             Author.put("serveinfoOrderShow", true);
         }
+        //员工
         else
         {
             Author.put("serveinfoAddShow", true);
             Author.put("serveinfoDeleteShow", true);
             Author.put("serveinfoOrderShow", false);
+
+            Author.put("isPass",false);//老人审核
+            Author.put("CanDelete",false);//删除老人信息
+            Author.put("CanEdit",false);//修改老人信息
         }
 
 
@@ -108,17 +121,17 @@ public class LoginController {
         }
         //父母信息
         else if (sysuser.getRole().equals("ROLE_PARENT")) {
-            model.addAttribute("menuinfo", menuInfoMapper.getAllMenu("'1','20','21','80','22','29','30'"));
+            model.addAttribute("menuinfo", menuInfoMapper.getAllMenu("'1','20','21','80','22','29','30','101'"));
         }
         //子女
         else if(sysuser.getRole().equals("ROLE_CHILDREN"))
         {
-            model.addAttribute("menuinfo", menuInfoMapper.getAllMenu("'1','20','21','80','22','28','31'"));
+            model.addAttribute("menuinfo", menuInfoMapper.getAllMenu("'1','20','21','80','22','28','31','101'"));
         }
         //小区员工
         else
         {
-            model.addAttribute("menuinfo", menuInfoMapper.getAllMenu("'1','20','40','60','70','21','24','101'"));
+            model.addAttribute("menuinfo", menuInfoMapper.getAllMenu("'1','20','60','70','21','24','101'"));
         }
         model.addAttribute("userloginname", sysuser.getGeneralname());
 

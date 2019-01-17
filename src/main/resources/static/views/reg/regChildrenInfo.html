@@ -14,7 +14,7 @@
                         <td>性别</td>
                         <td>身份证</td>
                         <td>编辑</td>
-                        <td>审核</td>
+                        <td ng-if="parentAuthor.isPass==true">审核</td>
                     </tr>
                     <tr ng-repeat="childrenInfo in childrenInfoList">
                         <td  class="text " ng-model="childrenInfo.childrenId" ng-bind="$index+1"></td>
@@ -24,9 +24,9 @@
                         <td ng-model="childrenInfo.identityCard">{{childrenInfo.identityCard}}</td>
                         <td>
                             <button  class="btn btn-success"  ng-click="editChildrenInfo(childrenInfo)">编辑</button>
-                            <button  class="btn  btn-danger" ng-click="deleteChildrenInfo(childrenInfo.childrenId)" >删除</button>
+                            <button  class="btn  btn-danger" ng-if="parentAuthor.CanDelete==true" ng-click="deleteChildrenInfo(childrenInfo.childrenId)" >删除</button>
                         </td>
-                        <td>
+                        <td ng-if="parentAuthor.isPass==true">
                             <button  class="btn  btn-danger" ng-if="childrenInfo.isAccess==1 " disabled>已审核</button>
                             <button  class="btn  btn-danger" ng-click="isAccess(childrenInfo)"  ng-if="childrenInfo.isAccess==0 ">审核</button>
                         </td>
