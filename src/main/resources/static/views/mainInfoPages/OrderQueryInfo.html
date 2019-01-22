@@ -23,6 +23,7 @@
                         <td><STRONG> 服务名称</STRONG></td>
                         <td><STRONG>预约类型</STRONG></td>
                         <td><STRONG>预约时间</STRONG></td>
+                        <td><STRONG>是否评分</STRONG></td>
                         <td><STRONG>操作</STRONG></td>
                     </tr>
                     </thead>
@@ -32,7 +33,8 @@
                         <td ng-model="serveInfo.serverItemInfo">{{serveInfo.serverItemInfo}}</td>
                         <td ng-model="serveInfo.type">{{serveInfo.type}}</td>
                         <td ng-model="serveInfo.orderdateTime">{{serveInfo.orderdateTime}}</td>
-                        <td><button  class="btn  btn-danger"  ng-click="deleteOrderServeInfoItem(serveInfo.id)" >删除{{serveInfo.id}}</button></td>
+                        <td ng-model="serveInfo.orderdateTime">{{serveInfo.grade==-1? "未评分":"已评分"}}</td>
+                        <td><button  class="btn  btn-danger"  ng-click="deleteOrderServeInfoItem(serveInfo.id)" >删除</button></td>
                     </tr>
                     </tbody>
                 </table>

@@ -39,6 +39,15 @@ public class ServeInfoService {
     }
 
 
+    //获取全部护理服务项目信息
+    public List<ServeInfo> getAllNursingServeInfoByItem(String itemInfo)
+    {
+        List<ServeInfo> list = serveInfoMapper.getAllNursingServeInfoByItem( itemInfo);
+
+        return list;
+    }
+
+
     //获取查询服务项目信息
     public List<ServeInfo> getAllServeByType(String itemInfo)
     {

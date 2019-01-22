@@ -15,7 +15,7 @@ public interface ServeInfoMapper {
     public List<ServeInfo> getAllServerInfo();
 
     //返回检索数据
-    @Select("select * from serve_info t where t.ispersona='0' t.serverItemInfo like  CONCAT('%',#{itemInfo},'%') ")
+    @Select("select * from serve_info t where t.ispersonal='0' and t.serverItemInfo like  CONCAT('%',#{itemInfo},'%') ")
     public List<ServeInfo> getAllServerInfoByType(String itemInfo);
 
     //返回护理检索数据

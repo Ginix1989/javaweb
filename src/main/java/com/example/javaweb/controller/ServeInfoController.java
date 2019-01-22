@@ -87,7 +87,7 @@ public class ServeInfoController {
     //获取制定护理服务信息
     @GetMapping("/getAllNursingServeInfoByType")
     public @ResponseBody List<ServeInfo> getAllNursingServeInfoByItem(@RequestParam String itemInfo) {
-        List<ServeInfo> listServeinfo = serveInfoService.getAllServeByType(itemInfo);
+        List<ServeInfo> listServeinfo = serveInfoService.getAllNursingServeInfoByItem(itemInfo);
         return  listServeinfo;
     }
 
